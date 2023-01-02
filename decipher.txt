@@ -1,0 +1,175 @@
+>-  assets
+ -----  css
+ -----  inc
+ -----  js
+ -----  settingPages
+ ---->  wcMetas
+     -----  custm_meta_boxes.php
+>   bulkOrderAndQuantity.php
+
+            TBODY CLASS ROW 325 DOESNT CLOSE??
+
+######################################################################################################
+custm_meta_boxes.php
+    function create_imprint_loc_color_attribute_taxonomies()
+        $result = wc_create_attribute( $args );
+        $result_1 = wc_create_attribute( $args_1 );
+
+                                                                                pa_imprint-location
+                                                                                pa_print-colors
+        ------------------------------------------------------------------------------------------
+    function misha_product_settings_tabs( $tabs )
+        return $tabs; 
+                                                                                'target'   => 'alie_ss_product_data',
+
+        ------------------------------------------------------------------------------------------                                                                        
+    function misha_product_panels()           
+
+                                                $get_imprint_meta = get_post_meta( get_the_ID(), 'pa_imprint_type',true ); ?>
+                                                $pa_imprint_location = get_post_meta( get_the_ID(), 'pa_imprint_location',true );
+                                                $imprint_color = get_post_meta( get_the_ID(), 'pa_imprint_color',true ); 
+
+
+                                                                                pa_imprint_type
+                                                                                embroidery-2
+                                                                                screen-print-3
+                                                                                pa_imprint_color
+
+        ------------------------------------------------------------------------------------------       
+    function woocommerce_product_custom_fields_save($post_id)            
+
+
+######################################################################################################
+######################################################################################################
+bulkOrderAndQuantity
+    register_activation_hook(__FILE__, 'ss_create_table_custom'); 
+    register_activation_hook(__FILE__, 'create_imprint_loc_color_attribute_taxonomies');
+    register_deactivation_hook( __FILE__, 'ss_pluginprefix_deactivate' );
+
+    include(plugin_dir_path(__FILE__) . '/assets/wcMetas/custm_meta_boxes.php');
+    include(plugin_dir_path(__FILE__) . '/assets/inc/function_file_code.php');
+    // include(plugin_dir_path(__FILE__) . '/assets/inc/product_base_discount_meta_box.php');
+    include(plugin_dir_path(__FILE__) . '/assets/settingPages/qty-base-discount.php');
+    include(plugin_dir_path(__FILE__) . '/assets/inc/product_page_js.php');
+    include(plugin_dir_path(__FILE__) . '/assets/inc/cart-page.php');
+    include(plugin_dir_path(__FILE__) . '/assets/inc/customJs.php');
+------------------------------------------------------------------------------------------
+    function ss_pluginprefix_deactivate()
+        delete_option('run_only_once_01');
+------------------------------------------------------------------------------------------
+    function scratchcode_run_code_one_time()
+------------------------------------------------------------------------------------------
+    function alie_ctm_enqueue_script_for_clientSite()
+    function alie_ctm_enqueue_script_for_adminSite()
+        wp_enqueue_script('ss-mycustom', plugin_dir_url(__FILE__) . '/assets/js/mycustom.js', array('jquery', 'select2_js'));
+------------------------------------------------------------------------------------------
+    function get_min_max ($ss_col, $ss_table_name)
+        global $wpdb;
+            return $wpdb->get_row("SELECT MIN(CAST(".$ss_col." AS int)) AS ss_min, MAX(CAST(".$ss_col." AS int)) AS ss_max FROM " . $ss_table_name);
+------------------------------------------------------------------------------------------
+    function bulkcss()
+        global $product;
+            	if (is_product()) { }
+
+    add_action('wp_footer', 'ss_custom_js_frontend');  
+    add_action('wp_head', 'bulkcss');
+
+------------------------------------------------------------------------------------------
+    function ss_custom_js_frontend()
+        			<script type="text/javascript">
+				        jQuery(window).ajaxComplete(function() {
+					        setTimeout(function() {
+						        jQuery('.bulktablebody1 .zerostock input').attr('disabled', true)
+						        jQuery('.bulktablebody1 .zerostock input').attr('style', 'cursor: not-allowed;')
+					        }, 500) }
+                        jQuery(document).ready(function() {
+					        jQuery("form#bulkvariationform .wc-pao-addons-container").remove();
+					        if (jQuery('form.variations_form.cart .wc-pao-addons-container').length > 0) {
+						        jQuery("<div class='wc-pao-addons-container'>" + jQuery('.wc-pao-addons-container').html() + "</div>").insertAfter('#bulkvariationform > table.variations1');
+					        }
+					        jQuery("ul.bulkorderradio li:first-child input").trigger('click');
+                            function qtyval() {
+                        jQuery('.bulkorderradio input').click(function() {
+                            let selectvalue = jQuery(this).val();
+
+
+                        
+
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+######################################################################################################
+            ------------------------------------------------------------------------------------------                                                                       
+
+
+
+
+                        function countMaxfields() {
+                var product_sum = 0;
+                jQuery(".bulktablebody1 input.input-text.qty.text").each(function() {
+                    product_sum += Number(jQuery(this).val());
+                });
+
+                var ss_min_qty_arr = JSON.parse(jQuery("#ss_min_qty_arr").val());
+                var ss_max_qty_arr = JSON.parse(jQuery("#ss_max_qty_arr").val());
+                var ss_amountof_color_arr = JSON.parse(jQuery("#ss_amountof_color_arr").val());
+
+				var maxField = 1;
+				for (var i = 1; i <= ss_max_qty_arr.length; i++) {
+					if (product_sum >= ss_min_qty_arr[i] && product_sum <= ss_max_qty_arr[i]) {
+						maxField = ss_amountof_color_arr[i];
+					} else if(product_sum >= ss_max_qty_arr[i]) {
+                        maxField = ss_amountof_color_arr[i];
+                    }
+				}
+                return [maxField, product_sum];
+            }
+
+
+                                for(var count = 0; count < check_already.length; count++ ){
+                        if (check_already[count][0].includes(getlocvalue)) {
+                            alert('Location already exist.');
+                            return;
+                        }
+                    }
+
+
+
+
+                    
+                    jQuery(this).parent('div').remove(); //Remove field html
+                    x--; //Decrement field counter
+                    cstm_arr_add_remove();
+
+
+                    
+                            if (i > show) {
+                                jQuery(this).hide();
+                            }
+
+
+
+                                                var productQuantity = 0;
+                    jQuery(".bulktablebody1 input.input-text.qty.text").each(function() {
+                        productQuantity += Number(jQuery(this).val());
+                    });
+
+
+
+                    
