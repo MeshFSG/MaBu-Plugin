@@ -1,0 +1,125 @@
+
+
+[[ INC ]]
+
+------------------------------------------------------
+    CustomJS.php
+        [====]
+        add_action("wp_footer","allie_custom_js_file_", 100);
+            [FUNCTION]
+                alie_custom_js_file_()
+                    if (is_product() )
+                        last_li_dis_pric
+                        #bulkvariationform
+                        .main-sh-li
+                        ul
+                        li:last-child 
+                        p:last-child
+
+                    #ale_wrap_container
+                        custom-table-sh
+                        custom-table-inner-sh
+                        ale_aft_Adt_btn
+
+------------------------------------------------------
+    Productpage_js.php
+        [FUNCTION]
+            ss_product_custom_js_()
+                is_single
+
+------------------------------------------------------
+    function_file_code.php
+        [====]
+        add_action("sss_jam_custom_html", "ale_before_add_to_cart_btn");
+            [FUNCTION]
+                ale_before_add_to_cart_btn()
+
+                *********************************************
+
+
+                if(!empty($get_deco_type))
+                    ctm-select-decoration-wrapper   [<label>Decoration * </label>]
+                    ctm-select-decoration [ + ID is same ]
+
+            [FUNCTION]
+                decoration_based_append_filed_and_check()
+                    getlocvalue         =   .ale_location_field
+                    getcolorvalue       =   .ale_color_field
+                    dec_val             =   .ctm-select-decoration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+
+BULK ORDER FORM SHOW
+
+BULK VARIATION FORM
+
+    .main-sh-li [THE BLANK PRICING]
+        ul
+            li
+                hr-sh
+
+    .variations1 [TABLE CLASS]
+        .bulktablebody
+            [HIDDEN inputs: ids: ss_max_qty_arr, ss_min_qty_arr, ss_hidden_amountof_color_arr]
+
+            label bulkorder-size-attr AvailableAllTime
+                variations1
+                    bulktablebody1
+                        value1 AvailableAllTime
+                        value1
+
+            label bulkorder-colors-variation
+                bulkorderradio
+                    bulkcolore###
+            
+        
+
+
+
+    .bulk_variation_wrap
+        .ctm-
+        .ctm-select-decoration-wrapper
+            .ctm-select-decoration
+
+        .ale_wrap_container
+            .ale_field_wrapper23
+                location_names
+                ale_clr_names
+            .field_wrapper
+                ale_field_wrapper     
+                    [HIDDEN inputs: ids: ale_pro_price, ale_combo, ss_print_count, jam_decoration ]
+
+                    .ale_loc_wraper
+                        .ale_location_field [name: ale_location_field_]
+
+                    .ale_color_wraper
+                        ~~'ale_color_field' [name: ale_color_field_]
+
+                    .add_button   [[title Confirm Location]]
+
+            .custom-table-sh [id]    [class]= ale_aft_Adt_btn
+            .custom-table-inner-sh
+
+        <!-- ///// -->
+            .ale_options_group
+        <!-- ///// -->
+
+            .bulk_add_to_cart_button bulksubmit [NAME: bulksubmit]
+
+

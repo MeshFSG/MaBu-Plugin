@@ -10,6 +10,17 @@
             TBODY CLASS ROW 325 DOESNT CLOSE??
 
 ######################################################################################################
+last_li_dis_price
+main-sh-li
+
+
+
+
+
+
+
+######################################################################################################
+
 custm_meta_boxes.php
     function create_imprint_loc_color_attribute_taxonomies()
         $result = wc_create_attribute( $args );

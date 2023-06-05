@@ -1,0 +1,23 @@
+
+CustomJS.php
+
+
+
+
+
+
+product_page_js.php
+    displays the decorating options
+
+
+
+
+
+WHERE IS is_product
+
+
+
+
+
+#279 Page function_file_code.php
+#354 Page function_file_code.php

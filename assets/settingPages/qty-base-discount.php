@@ -401,7 +401,7 @@
       {
         //  echo $price;
           $html = '<div class="main-sh-li">';
-          $html .= "<p>Pricing</p>";
+          $html .= "<p>Blank Pricing</p>";
           $html .= "<ul>";
           foreach ($arr as $key => $value) {
               if ($boolean) {

@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: Bulk Quantity & Wc Custom Addons
 Plugin URI: https://seositesoft.com/
