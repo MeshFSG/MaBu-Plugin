@@ -25,7 +25,7 @@
                 jQuery("label.AvailableAllTime input").each(function(){
                     const getmaxvalue =  parseInt(jQuery(this).attr('max'));
                     if(  getmaxvalue > 0){
-                        jQuery(this).after('<span class="stockavail">Stock:'+getmaxvalue+'</span>')
+                        jQuery(this).after('<span class="stockavail">Stock:</span><span>'+getmaxvalue+'</span>')
                     }
                 });
             });

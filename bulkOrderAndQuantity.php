@@ -99,6 +99,8 @@ function bulkcss() {
 
 }
 
+/////////////////////////// ss_custom_js_frontend /////////////////////////////
+
 add_action('wp_footer', 'ss_custom_js_frontend');
 
 function ss_custom_js_frontend() {
@@ -233,6 +235,8 @@ function ss_custom_js_frontend() {
 	}
 }
 
+/////////////////////////// CHECK STOCK AVAILABILITY /////////////////////////////
+
 add_action('wp_ajax_check_availabilty_stock', 'check_availabilty_stock');
 add_action('wp_ajax_nopriv_check_availabilty_stock', 'check_availabilty_stock');
 
@@ -288,8 +292,8 @@ function check_availabilty_stock() {
 
 }
 
+/////////////////////////// BULK ORDER BUTTON /////////////////////////////
 add_action('woocommerce_before_add_to_cart_form', 'add_bulk_order_button', 1);
-
 function add_bulk_order_button() {
 	global $product, $post;
 	if (is_product() && $product->is_type('variable')) :
@@ -301,6 +305,7 @@ function add_bulk_order_button() {
 		?>
 			<div id='bulkorderformshow'>
 				<form id='bulkvariationform' action='' method='post' enctype='multipart/form-data'>
+
 					<input type='hidden' id='attribute_pa_sizes' name='attribute_pa_sizes[]' value=''>
 					<input type='hidden' name='proid' value='<?= $product->id; ?>'>
 
@@ -316,7 +321,7 @@ function add_bulk_order_button() {
 										sort($getData['options']);
 										$attrIds = $getData['options'];
 										if (str_contains($key, 'size')) {
-											?>
+								?>
 												<td class="label bulkorder-size-attr">
 
 													<label>
@@ -326,7 +331,7 @@ function add_bulk_order_button() {
 													<table class='variations1' cellspacing='0'>
 														<tbody class='bulktablebody1'>
 															<?php
-																//for quantity
+																//for quantity size input
 																$table .= '<tr>';
 																foreach ($attrIds as $singleId) {
 															
@@ -350,10 +355,12 @@ function add_bulk_order_button() {
 																	<?php 
 																}
 															?>
-														</tr>
+															</tr>
+														<!-- </tbody> -->
 													</table>
 
 												</td>
+
 											<?php
 
 										} elseif (str_contains($key, 'color')) {
@@ -424,7 +431,9 @@ function add_bulk_order_button() {
 						<?php
 							do_action('sss_jam_custom_html');
 						?>
-						<button type="submit" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit"><?= __('Add to cart', 'sss_jam'); ?></button>
+						<button type="submit" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit">
+							<?= __('Add to cart', 'sss_jam'); ?>
+						</button>
 					</div>
 
 				</form>
@@ -432,12 +441,17 @@ function add_bulk_order_button() {
 		<?php
 	
 		echo $table;
+
 	} else { //check variation available end here
 		echo '<p class="stock out-of-stock">This product is currently out of stock and unavailable.</p>';
 	} //check variation available end here
 
 	endif; //is_product
 }
+
+
+
+
 
 
 
@@ -448,12 +462,11 @@ function add_bulk_order_button() {
  * @param $attributes
  * @return int
  */
-
 function find_matching_product_variation_id($product_id, $attributes) {
 	$loadpro =  WC_Data_Store::load('product');
 	return  $loadpro->find_matching_product_variation(new \WC_Product($product_id), $attributes);
 }
-
+/////////////////////////// ADD TO CART MESSAGE  /////////////////////////////
 function sss_jam_addtocart_message($count) {
 	// Output success messages
 	if (get_option('woocommerce_cart_redirect_after_add') == 'yes') :
@@ -466,6 +479,7 @@ function sss_jam_addtocart_message($count) {
 	wc_add_notice($message, 'success');
 }
 
+/////////////////////////// BULK ORDER QUANTITY /////////////////////////////
 add_action('wp_loaded', 'sss_jam_bulk_OrderQuantity', 99);
 
 function sss_jam_bulk_OrderQuantity() {
@@ -526,6 +540,12 @@ function sss_jam_bulk_OrderQuantity() {
 				$error = true;
 			} //get variation id else end here
 		} //outer loop foreach
+
+
+
+
+
+
 
 		$url1 = site_url() . "/product/" . $productobj->get_slug();
 		if ($error) {

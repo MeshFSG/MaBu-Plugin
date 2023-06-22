@@ -23,17 +23,13 @@
             $table_name = $wpdb->prefix . "ss_gloablly_decoration_settings";
         //============================================================================//
         //============================================================================//
-
-
-        foreach ($product_tags as $value) {
-            $result =  $wpdb->get_row(  "SELECT * FROM $table_name WHERE tags_name LIKE '%" . $value ."%'" );
-            if ($result ) {
-                $unser_tag_obj = unserialize($result->tags_object);
-                break;
+            foreach ($product_tags as $value) {
+                $result =  $wpdb->get_row(  "SELECT * FROM $table_name WHERE tags_name LIKE '%" . $value ."%'" );
+                if ($result ) {
+                    $unser_tag_obj = unserialize($result->tags_object);
+                    break;
+                }
             }
-        }
-
-
         //============================================================================//
         //============================================================================//
             $get_deco_type = $unser_tag_obj[0]['pa_imprint_type'];
@@ -44,9 +40,6 @@
         //============================================================================//
         //============================================================================//
 
-        
-        
-        
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////// We do not currently support grouped or external products //////////////////////////
         if (
@@ -58,10 +51,6 @@
         if (empty($get_deco_type)) {
             return;
         }
-
-
-
-        
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////// DISPLAYS THE DECORATION OPTIONS ON THE PRODUCT PAGE //////////////////////////
         if (!empty($get_deco_type)) {
@@ -85,8 +74,6 @@
         <!-- THE LOCATION OF THE ON PRODUCT DISPLAYED STUFF -->
 
         <div class="ale_wrap_container" id="ale_wrap_container">
-
-
             <div class="ale_field_wrapper23">
                 <p class="location_names">Location</p>
                 <p class="ale_clr_names">Type</p>
@@ -97,14 +84,12 @@
             <div class="field_wrapper">
 
                 <div class="ale_field_wrapper"> 
-
                     <input type='hidden' id='ale_pro_price' name='ale_pro_price' value='<?php echo $get_price; ?>'>
                     <input type='hidden' id='ale_combo' name='combo' value=''>
                     <input type='hidden' id='ss_print_count' name='ss_print_count' value=''>
                     <input type='hidden' id='jam_decoration' name='jam_decoration' value=''>
 
                     <div class="ale_loc_wraper" id="ale_loc_wraper">
-
                         <select name="ale_location_field_" class="ale_location_field">
                             <option value="">Select Location</option>
                             <?php foreach ( $imprint_location as $key => $value ) {
@@ -112,11 +97,9 @@
                                 echo '<option value="' . $term_name_by_id . '" >' . $term_name_by_id . "</option>";
                             } ?>
                         </select>
-
                     </div>
 
                     <div class="ale_color_wraper" id="ale_color_wraper">
-
                         <select name="ale_color_field_" class="ale_color_field">
                             <option value="">Amount of Colors</option>
                             <?php
@@ -124,11 +107,9 @@
                                 while ($i++ < $max_color_amount) echo '<option value="' . $i . '" >' . $i . "</option>";
 							?>
                         </select>
-
                     </div>
 
                     <a href="javascript:void(0);" class="add_button" style="background:#2CC64D;color:white;" title="Confirm Location">+ Add</a>
-
                 </div>
 
             </div>
@@ -196,7 +177,7 @@
         
         <script type="text/javascript">
 
-            /////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////
             ///////////// CART STUFF ????? ////////////////////////////////////////
             function cstm_arr_add_remove() {
                 var elems = [];
@@ -210,7 +191,6 @@
                 });
                 jQuery('#ale_combo').val(JSON.stringify(elems));
             }
-
 
             /////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////// select2append ///////////////////////////////////
@@ -249,7 +229,6 @@
                 let maxField = maxField_product_sum[0];
                 let product_sum = maxField_product_sum[1];
 
-
                 ///////// variation product count each loop end ////////////
                 // THE NOTIFICATION FOR HAVING NOTHING IN YOUR SELECTION BEFORE CLICKING ADD
                 var colorsswatches;
@@ -264,12 +243,8 @@
                     var colorsswatches = getcolorvalue;
                 }
 
-                
                 ////////////////////////////////////////////////////////////////////////
                 var wrapper = jQuery('.field_wrapper'); //Input field wrapper
-
-
-
 
                 ////////////////////////////////////////////////////////////////////////
                 ///////// THE REMOVE BUTTON AFTER CLICKING ADD ON THE PRODUCT //////////
@@ -314,8 +289,6 @@
 				}
                 return [maxField, product_sum];
             }
-
-
             ////////////////////////////////////////////////////////////////////////
             ////////////////////// ON READY JS CODE ////////////////////////////////
             jQuery(document).ready(function() {
@@ -380,6 +353,8 @@
                     var clramount = jQuery("#ale_none_field").val();
                     var check_already = jQuery('#ale_combo').val();
 
+                    
+
 
 
                     ////////////////////////////////////////////////////////////////////////////////////////
@@ -387,7 +362,6 @@
                     if(check_already !== "") {
                         check_already = JSON.parse(check_already);
                     }
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     ////////////// ------------------------------------------------------- /////////////////
                     for(var count = 0; count < check_already.length; count++ ){
@@ -396,10 +370,8 @@
                             return;
                         }
                     }
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     var dec_val = jQuery('#ctm-select-decoration').val();
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     ////////////// THE NOTIFICATION TELL YOU TO SELECT A COMBO OR LOCATION /////////////////
                     if (dec_val == 'screen-print-3') {
@@ -419,13 +391,11 @@
                             alert('Please select a location');
                         }
                     }
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     ////// ////// RESET THE SELECT FIELDS AFTER ADD ST /////////////////////////////////////
                     jQuery(".ale_location_field").val("");
                     jQuery(".ale_color_field").val("");
                     jQuery("#ale_none_field").val("");
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     ////// ////// ADD SELECTED FIELDS INTO HIDDEN INPUT ARRAY ST ///////////////////////////
                     cstm_arr_add_remove();

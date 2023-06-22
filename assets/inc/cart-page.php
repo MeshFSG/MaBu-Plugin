@@ -13,6 +13,7 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
         //  print_r($cart_item['wdm_name']);
         
         $custom_details = json_decode(stripslashes($cart_item['wdm_name']));
+
         //  echo "<pre>";
         //  print_r($custom_details);
         //  exit();
@@ -56,6 +57,8 @@ function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values
         $item->add_meta_data('_wdm_name', $values['wdm_name']);
     }
 }
+
+
 // ////////////////// SHOW CUSTOM META INTO ADMIN ORDER PAGE////////////////////////
 
 add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);
@@ -401,3 +404,4 @@ add_action('woocommerce_before_checkout_form', 'my_custom_message');
 function my_custom_message() {
        wc_print_notice( __('If the product quantity is less than 12 no discount will be applicated.'), 'notice' );
 }
+

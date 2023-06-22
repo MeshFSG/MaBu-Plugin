@@ -446,12 +446,12 @@
                 }
             }
 
-          if ($unser_tag_obj) {
-                show_discount_product_base_and_gloablly(
-                    $unser_tag_obj,
-                    $product_p,
-                );
-              }
+            if ($unser_tag_obj) {
+                    show_discount_product_base_and_gloablly(
+                        $unser_tag_obj,
+                        $product_p,
+                    );
+                }
 		  
 		  	$table_screen_print_cart_prod = $wpdb->prefix . "ss_screen_print_cart_product";
 			$result_screen_print_cart_prod = $wpdb->get_results("SELECT * FROM $table_screen_print_cart_prod ORDER BY ABS(ss_min_qty_field)");
