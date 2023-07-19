@@ -1,0 +1,667 @@
+/* FUNCTION FILE CSS ST*/
+
+/* ///////////////////////////////// idk where to sort //////////////////////////////////////// */
+
+form.variations_form.cart {
+    display: none !important;
+}
+
+.label > label {
+/* 	font-size: 1.20em; */
+/* 	font-size: 1.05em; */
+	font-size: 16px;
+}
+
+
+/**================= gen ==========================**/
+
+/* body {
+  counter-reset: section;
+} */
+
+/**================= select2 ==========================**/
+.select2-container--default .select2-selection--multiple {
+    border: unset;
+}
+/* 
+.select2-container {
+    width: 200px !important;
+    border: 1px solid lightgray;
+    padding: 1px 0px;
+} */
+.select2-search.select2-search--inline {
+	height: 5px;
+}
+span.select2-container--below .selection ul {
+    margin: 0;
+}
+
+
+#bulkvariationform {
+	width: 100%;
+	overflow: hidden;
+}
+
+.bulk_variation_wrap {
+	display: flex;
+	flex-direction: column;
+}
+#bulkorderformshow {
+/* 	width: 80%; */
+}
+/*________________________________________________________________________*/
+/******************************* PRICE SECTION  !! ***********************/
+/*______________________________________________________________________*/
+
+.main-sh-li {
+	margin: 20px 0px 10px 0px;
+}
+/**================= BLANK PRICING TEXT ==========================**/
+.main-sh-li > p {
+/* 	font-family: 'Barlow Condensed', sans-serif; */
+	line-height: 20px;
+	font-size: 18px;
+	letter-spacing: 0.05em;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin: 0px;
+}
+/**================= PRICE WRAPPER ==========================**/
+.main-sh-li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+	flex-wrap: wrap;
+}
+/**================= THE SPECIFIC PRICING BLOCK ==========================**/
+.main-sh-li ul li {
+    background-color: transparent;
+    padding: 10px;
+    color: #000;
+    text-align: center;
+}
+/**================= THE QTY BREAK  ==========================**/
+.main-sh-li ul li p {
+    font-size: 14px;
+    line-height: 24px;
+	margin: 0;
+}
+.main-sh-li ul li {
+/* 	flex-grow: 1; */
+}
+
+
+/**================= QTY BREAK SELECTION ==========================**/
+/* .main-sh-li p:first-child {
+	font-weight: 700;
+	text-transform: uppercase;
+	margin: 0px;
+} */
+.main-sh-li > ul > li > p:nth-child(1) {
+	font-weight: 700;
+	text-transform: uppercase;
+	margin: 0px 5px;
+}
+
+/**================= DIVIDING LINE ON QTY AND COST PRODUCT PAGE ==========================**/
+hr.hr-sh {
+    border-bottom: 1px solid #2DC74E;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+/* 	margin: 8px 0px 10px 0px; */
+	margin: 6px 0px 6px 0px;
+}
+
+
+	
+/*________________________________________________________________________*/
+/******************************* BULK TABLE BODY  !! **********************/
+/******************************* COLOR AND SIZE AREA  !! *****************/
+/*______________________________________________________________________*/
+
+/**===========================||==========||===============|| SWITCH THE ORDER BETWEEN SIZE AND COLOR =====**/
+.bulktablebody > tr > td.label.bulkorder-colors-variation {
+    order: 1;
+	width: 60%;
+/* 	width: 80%; */
+}
+td.label.bulkorder-size-attr {
+    order: 2;
+}
+/**===========================||==========||===============|| THE WRAPPER FOR THE COLORS AND SIZES INPUTS =====**/
+tbody.bulktablebody {
+    display: flex;
+    flex-direction: column;
+}
+tbody.bulktablebody > tr {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.bulktablebody tr .label {
+    width: 100%;
+} 
+/**===========================||==========||===============|| MAKES SIZE AND COLOR BOLD ||**/
+tbody.bulktablebody > tr > .label > label {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+/**===========================||==========||===============|| bulktablebody SELECT ||**/
+tbody.bulktablebody select {
+    border: 2px solid #ddd;
+    padding: 0px 5px;
+    width: 50%;
+}
+/*________________________________________________________________________*/
+/******************************* COLOR  **********************************/
+/*______________________________________________________________________*/
+
+
+/**===========================||==========||===============|| 		 BULK ORDER COLORS AREA		||**/
+.bulkorder-colors-variation {
+	display: flex;
+	flex-direction: column;
+}
+.bulkorder-colors-variation label {
+/* 	flex-basis: 100%; */
+/* 	font-size: 16px; */
+/* 	text-transform: uppercase; */
+}
+
+
+
+/*________________________________________________________________________*/
+/******************************* SIZE INPUTS  !! *************************/
+/*______________________________________________________________________*/
+/**===========================||==========||===============|| variations1 is the table   ==========================**/
+.bulkorder-size-attr .variations1 {
+/* 	margin-top: 12px;
+	margin-left: 30px; */
+	margin: 0px 0px 12px 30px;
+}
+/* 
+.value1 .input-text {
+	text-align: center;
+} 
+
+.variations1 > .bulktablebody1 > tr > .value1 {
+	text-align: center;
+} */
+/**===========================||==========||===============|| bulktablebody1 is tbody  ==========================**/
+tbody.bulktablebody1 tr {
+/*     display: table-row !important; */
+}
+.bulktablebody1 > tr {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	column-gap: 20px;
+}
+tbody.bulktablebody1 > tr > td {
+	font-size: 20px;
+}
+/**===========================||==========||===============|| bulktablebody1 AvailableAllTime ||**/
+/** 
+tbody.bulktablebody1 td.value1:not(.AvailableAllTime) input{
+	display:none;
+}
+
+tbody.bulktablebody1 td.value1:not(.AvailableAllTime):after {
+    position: absolute;
+    width: 100%;
+    content: 'Out of stock';
+    max-height: 100%;
+    left: 0;
+    cursor: not-allowed;
+    line-height: 14px;
+    font-size: 12px;
+    color: red;
+	font-weight:bold;
+    text-transform: capitalize;
+    padding: 8px 0px;
+}
+**/
+
+/**===========================||==========||===============|| bulktablebody1 NOT AVAILABLE SELECTED ||**/
+.bulktablebody1 td.value1:not(.AvailableAllTime)>input {
+    background-color: aliceblue;
+    cursor: not-allowed;
+}
+/**===========================||==========||===============|| bulktablebody1 LABEL ||**/
+/* 
+tbody.bulktablebody1 label {
+    display: block;
+} */
+/**===========================||==========||===============|| bulktablebody1 VALUE1 IS THE INPUT ||**/
+tbody.bulktablebody1 .value1 {
+/* 	font-size: 14px; */
+/*     position: relative; */
+}
+/**===========================||==========||===============|| BUY STOCK BUTTON REACTS ||**/
+td.value1 input,
+td.value1 input:focus {
+    border: 2px solid #ddd;
+}
+
+/* 
+.bulktablebody1 tr:nth-child(1) td.value1 {
+    width: 50px;  display: inline-block;  margin-right: 10px;  text-align: center;  text-transform: uppercase;  vertical-align: top;
+}
+.bulktablebody1 tr:nth-child(2) td.value1 {
+    width: 44px;  height: 44px;  display: inline-block;    margin-right: 10px;    margin-bottom: 10px;  text-align: center;  padding-bottom: 0px;
+}    */
+
+/**===========================||==========||===============|| AVAILABLE STOCK ||**/
+.AvailableAllTime {
+	font-size: 14px;
+	inline-size: 50px;
+	word-break: break;
+}
+/**===========================||==========||===============|| UNAVAILABLE STOCK ||**/
+span.outstock {
+    display: block;
+    font-size: 12px;
+    color: red;
+    line-height: initial;
+}
+/**===========================||==========||===============|| STOCK AVAILABLE BANNER ||**/
+.stockavail {
+	inline-size: 45px;
+	word-wrap: break-word;
+	margin: 0px 0px;
+	font-weight: 400;
+	font-size: 12px;
+}
+span.stockavail {
+    font-size: 12px;
+    display: block;
+    width: 40px;
+    line-break: anywhere;
+    line-height: 15px;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+/**===========================||==========||===============|| TEXTTEXTTEXT ||**/
+.bulktablebody1 #s {
+	border: 2px solid #ddd;
+	font-size: 16px;
+}
+/**===========================||==========||===============|| INPUT ||**/
+/* tbody.bulktablebody1 input {
+    padding: 0 !important;
+}
+tbody.bulktablebody1 input {
+    padding: 0px;
+    text-align: center;
+} */
+
+
+
+
+
+
+
+
+
+/**===========================||==========||===============|| COLOR INPUTS ||**/
+/**=================|| CONTAINER OF COLORS ||**/
+ul.bulkorderradio {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    gap: 10px;
+    padding: 0;
+	margin-left: 30px;
+}
+/**=================|| LIST ITEMS COLORS ||**/
+.bulkorderradio li {
+    display: inline-block;
+}
+/**=================|| COLOR INPUT ||**/
+.bulkorderradio input[type="radio"][id^="bulkcolore"] {
+    display: none;
+}
+/**=================|| COLOR LABELS ||**/
+.bulkorderradio label {
+    border: 0.5px solid #c1c6c8;
+    padding: 0px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.bulkorderradio li label:hover {
+    font-size: 13px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    transition-property: color, background-color, border-color;
+    transition-duration: .2s;
+    transition-timing-function: linear;
+}
+.bulkorderradio :checked+label {
+    border-color: #63d67c;
+    border-width: 3px
+}
+.bulkorderradio li label span:nth-child(1) {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+
+/**===========================||==========||===============|| COLOR TOOL TIP ||**/
+.bulkorderradio li label:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+span.tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    background: #000;
+    color: #fff;
+	
+/* 	width: 80px; */
+	white-space: nowrap;
+/* 	white-space: normal; */
+/* 	white-space: pre-wrap */
+	word-wrap: break-word;
+	
+/* 	transform: translateX(-50%); */
+	transform: translateX(-40%);
+	
+	
+    border-radius: 3px;
+    padding: 0 10px;
+    text-transform: capitalize;
+    letter-spacing: .2px;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    -ms-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+span.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+
+/*________________________________________________________________________*/
+/********************* DECORATION ACTIVATION BUTTONS  !! *****************/
+/*______________________________________________________________________*/
+
+/**=================|| BUTTON THAT TRIGGERS TABS SECTION ON PRODUCT PAGE ||**/
+.decshowoption {	margin-bottom: 10px; }
+#decoff {	display: none;  }
+
+/**=================|| THE AREA HOLDING THE TAB INFO   ||**/
+
+
+deccart_option_wrapper {
+/* 	display: fl */
+}
+
+
+/*________________________________________________________________________*/
+/********************* DECORATION SELECTION  !! **************************/
+/*______________________________________________________________________*/
+
+/**=================|| DEC OPTIONS HOLDER ||**/
+#dec_opt_div {	
+	display: none;
+	order: 2;
+}
+.bulk_add_to_cart_button {
+	order: 1;
+}
+
+/**=================|| DEC OPTIONS DROP DOWN ||**/
+select#ctm-select-decoration {
+    min-width: 100%;
+    border: 1px solid #CFCFCFCF;
+    padding: 10px 5px;
+    margin: 0;
+    text-transform: capitalize;
+}
+.ctm-select-decoration-wrapper label {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+}
+select option[value^='embroidery']:not(option[value^='embroidery-2']) {
+    display: none;
+}
+
+/**===========================||==========||===============|| ALE FIELD DECORATION OPT CONTENT ||**/
+div#ale_wrap_container {border: 1px solid #CFCFCF;margin: 20px 0px;padding: 20px 10px;}
+
+
+p.location_names, p.ale_clr_names {
+	flex-basis: 40%;
+	font-weight: bold;
+}
+
+
+/**=================|| ALE_FIELD_WRAPPER1 HEADING ||**/
+.ale_field_wrapper1:before {
+    counter-increment: section;
+	content:counter(section) ": ";
+    display: inline-block;
+    color: black;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.ale_field_wrapper1 a, .ale_field_wrapper a {
+	flex-basis: 20%;
+	border: 1px solid lightgray;
+	text-align: center;
+	color: #2CC64D; 
+	padding: 5px;
+}
+.ale_field_wrapper1 p, .ale_field_wrapper select {
+    text-transform: capitalize;
+    width: 100%;
+}
+.ale_field_wrapper1 a, .ale_field_wrapper a {
+    padding: 6px 5px;
+}
+.ale_field_wrapper1 {
+	border-bottom: 1px solid lightgray;
+}
+.ale_field_wrapper1, .ale_field_wrapper {
+	margin: 10px;
+}
+
+/**=================|| ALE_FIELD_WRAPPER23 ( EMBROIDERY TABLE HEADING ) ||**/
+.ale_field_wrapper23 {display: flex;flex-direction: row;border-bottom: 1px solid #CFCFCF;padding: 0px 10px;}
+
+/**===========================||==========||===============|| DECORATION LOCATION SECTION ||**/
+.field_wrapper {
+	margin-top: 10px;
+}
+.field_wrapper div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+/**=================|| DEC OPTION SELECTION HEADERS ||**/
+.ale_field_wrapper {
+    display: block !important;
+    margin: 0;
+}
+.ale_field_wrapper a {
+    display: block;
+    overflow: hidden;
+    clear: both;
+    width: 30%;
+    margin-top: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.ale_field_wrapper select {
+	border: 1px solid lightgray;
+}
+/**=================|| DEC OPTION LOCATION AND COLOR SELECTION  ||**/
+div#ale_loc_wraper,
+div#ale_color_wraper {
+    width: 48%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+div#ale_color_wraper span:nth-child(2) {
+    width: 100% !important;
+}
+div#ale_color_wraper span:nth-child(3) {
+    display: none;
+}
+
+div#ale_loc_wraper .ale_location_field {
+    width: 100%;
+    height: 40px;
+}
+div#ale_loc_wraper {
+    margin-right: 10px;
+}
+div#ale_color_wraper span > span {
+    border: none;
+    padding: 0;
+}
+
+/**===========================||==========||===============|| CUSTOM TABLE (SCREEN PRINT OPTIONS TABLE  ||**/
+.ale_aft_Adt_btn {
+	display: none;
+}
+
+div#custom-table-sh {
+    background-color: #eee;
+    padding: 10px 15px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+.custom-table-inner-sh {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+.custom-table-inner-sh p {
+    margin: 0;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    width: 120px;
+}
+.custom-table-inner-sh span {
+    width: 40px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+.custom-table-inner-sh {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+
+/*________________________________________________________________________*/
+/*******************************   !! ***********************/
+/*______________________________________________________________________*/
+
+
+/**=================  wc-pao ==========================**/
+/**=================||   ||**/
+
+.wc-pao-addon-location, .wc-pao-addon-colors {display: none !important;}
+/**=================||   ||**/
+
+/**=================  idk ==========================**/
+del.ss_del_cls {
+    display: inline-block !important;
+}
+
+/*__________________________________________________________________________________________*/
+/************************************ MAX 900 !! *******************************************/
+/*________________________________________________________________________________________*/
+@media only screen and (max-width: 900px) {
+}
+
+/*__________________________________________________________________________________________*/
+/************************************ MAX 1160 !! *******************************************/
+/*________________________________________________________________________________________*/
+@media only screen and (max-width: 1160px) {
+	}
+
+/*__________________________________________________________________________________________*/
+/************************************ MAX 751 !! *******************************************/
+/*________________________________________________________________________________________*/
+@media only screen and (max-width: 751px) {
+	
+.bulktablebody > tr > td.label.bulkorder-colors-variation {
+	width: 100%;
+}
+}	
+
+/*__________________________________________________________________________________________*/
+/************************************ MAX 780 !! *******************************************/
+/*________________________________________________________________________________________*/
+@media only screen and (max-width: 780px) {
+	.bulktablebody > tr > td.label.bulkorder-colors-variation {
+/*     order: 1; */
+/* 	width: 60%; */
+	width: 90%;
+}
+}
+/*__________________________________________________________________________________________*/
+/************************************ MAX 580 !! *******************************************/
+/*________________________________________________________________________________________*/
+@media only screen and (max-width: 780px) {
+	.bulktablebody > tr > td.label.bulkorder-colors-variation {
+		width: 100%;
+	}
+	.bulktablebody > tr > td.label.bulkorder-colors-variation .bulkorderradio {
+			justify-content: center;
+	}
+		
+	.bulkorder-colors-variation .bulkorderradio {
+		margin: 16px 0px 16px 0px;
+	}
+	
+	.bulkorder-size-attr .variations1 {
+		margin: 12px 0px 0px 0px;
+	}
+	.bulkorder-size-attr .variations1 tbody tr {
+		justify-content: center;
+	}
+	.main-sh-li ul {
+		gap: 5px 5px;
+		justify-content: center;
+	}
+	.main-sh-li ul li {
+		padding: 5px;
+		inline-size: 20%;
+	}
+	.AvailableAllTime {
+		inline-size: 40px;
+	}
+	.first-payment-date {
+		margin: 10px 0px 0px 0px;
+	}
+
+
+/*________________________________________________________________________________________*/
+
