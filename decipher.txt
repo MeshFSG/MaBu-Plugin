@@ -9,10 +9,13 @@
 
             TBODY CLASS ROW 325 DOESNT CLOSE??
 
-######################################################################################################
+############################### IMPORTANT CLASSES AND OR FUNCTIONS #######################################################################
 last_li_dis_price
 main-sh-li
-
+sss_Jam_Custom_HTML
+sss_Jam_Bulk_OrderQuantity
+    Submits to cart(?)
+    
 
 
 
