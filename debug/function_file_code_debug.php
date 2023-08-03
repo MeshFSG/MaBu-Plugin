@@ -1,6 +1,6 @@
 <?php
-    ////////////////CUSTOM HOOK USE FOR ENQUEE CODE////////////////////////
 
+    ////////////////CUSTOM HOOK USE FOR ENQUEE CODE////////////////////////
     add_action("sss_jam_custom_html", "ale_before_add_to_cart_btn");
 
     function ale_before_add_to_cart_btn()
@@ -195,7 +195,7 @@
 
 
                 ///////// variation product count each loop end ////////////
-                //
+                
                 var colorsswatches;
                 if (product_sum == 0) {
                     alert('please fill quantity fields');
@@ -218,7 +218,7 @@
                 } else {
                     maxField;
                 }
-
+                
                 if (jQuery('.ale_field_wrapper1').length < maxField) {
                     jQuery(wrapper).append(fieldHTML); //Add field html
 
