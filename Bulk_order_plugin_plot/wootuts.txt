@@ -1,0 +1,459 @@
+
+
+https://www.businessbloomer.com/woocommerce-conditional-logic-ultimate-php-guide/
+
+
+==================================================================================================
+https://www.businessbloomer.com/woocommerce-set-min-purchase-amount-for-specific-product/
+
+
+
+
+==================================================================================================
+Min Qty Add to cart
+https://www.businessbloomer.com/woocommerce-define-add-cart-min-max-incremental-quantities/
+
+https://www.businessbloomer.com/woocommerce-set-min-purchase-amount-for-specific-product/
+
+/**
+ * @snippet       Set Min Purchase Amount | WooCommerce Single Product
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @testedwith    WooCommerce 5
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+// ------------
+// 1. Single Product Page
+ 
+add_filter( 'woocommerce_quantity_input_min', 'bloomer_woocommerce_quantity_min_50_eur', 9999, 2 );
+   
+function bloomer_woocommerce_quantity_min_50_eur( $min, $product ) {  
+ 
+   if ( is_product() ) {
+      if ( 123 === $product->get_id() ) {
+         $min = ceil( 50 / $product->get_price() );
+      }
+ 
+   }
+    
+   return $min;
+ 
+}
+ 
+// ------------
+// 2. Cart Page
+ 
+add_filter( 'woocommerce_cart_item_quantity', 'bloomer_woocommerce_quantity_min_50_eur_cart', 9999, 3 );
+   
+function bloomer_woocommerce_quantity_min_50_eur_cart( $product_quantity, $cart_item_key, $cart_item ) {  
+    
+   $_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+    
+   $min = 0;
+ 
+   if ( 123 === $_product->get_id() ) {
+      $min = ceil( 50 / $_product->get_price() );
+   }
+    
+   $product_quantity = woocommerce_quantity_input( array(
+      'input_name'   => "cart[{$cart_item_key}][qty]",
+      'input_value'  => $cart_item['quantity'],
+      'max_value'    => $_product->get_max_purchase_quantity(),
+      'min_value'    => $min,
+      'product_name' => $_product->get_name(),
+   ), $_product, false );
+    
+   return $product_quantity;
+ 
+}
+
+
+
+
+==================================================================================================
+Alter Product Price Based on ***************
+https://www.businessbloomer.com/woocommerce-set-override-product-price-programmatically/
+
+/**
+ * @snippet       Alter Product Pricing Part 1 - WooCommerce Product
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 4.1
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_filter( 'woocommerce_get_price_html', 'bbloomer_alter_price_display', 9999, 2 );
+ 
+function bbloomer_alter_price_display( $price_html, $product ) {
+    
+    // ONLY ON FRONTEND
+    if ( is_admin() ) return $price_html;
+    
+    // ONLY IF PRICE NOT NULL
+    if ( '' === $product->get_price() ) return $price_html;
+    
+    // IF CUSTOMER LOGGED IN, APPLY 20% DISCOUNT   
+    if ( wc_current_user_has_role( 'customer' ) ) {
+        $orig_price = wc_get_price_to_display( $product );
+        $price_html = wc_price( $orig_price * 0.80 );
+    }
+    
+    return $price_html;
+ 
+}
+ 
+/**
+ * @snippet       Alter Product Pricing Part 2 - WooCommerce Cart/Checkout
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 4.1
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_action( 'woocommerce_before_calculate_totals', 'bbloomer_alter_price_cart', 9999 );
+ 
+function bbloomer_alter_price_cart( $cart ) {
+ 
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+ 
+    if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
+ 
+    // IF CUSTOMER NOT LOGGED IN, DONT APPLY DISCOUNT
+    if ( ! wc_current_user_has_role( 'customer' ) ) return;
+ 
+    // LOOP THROUGH CART ITEMS & APPLY 20% DISCOUNT
+    foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+        $product = $cart_item['data'];
+        $price = $product->get_price();
+        $cart_item['data']->set_price( $price * 0.80 );
+    }
+ 
+}
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-display-regularsale-price-cart-table/
+
+/**
+ * @snippet       Show Regular/Sale Price @ WooCommerce Cart Table
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @testedwith    WooCommerce 3.8
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+  
+add_filter( 'woocommerce_cart_item_price', 'bbloomer_change_cart_table_price_display', 30, 3 );
+  
+function bbloomer_change_cart_table_price_display( $price, $values, $cart_item_key ) {
+   $slashed_price = $values['data']->get_price_html();
+   $is_on_sale = $values['data']->is_on_sale();
+   if ( $is_on_sale ) {
+      $price = $slashed_price;
+   }
+   return $price;
+}
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-calculate-subtotal-on-quantity-increment-single-product/
+
+/**
+ * @snippet       Calculate Subtotal Based on Quantity - WooCommerce Single Product
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 4.1
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_action( 'woocommerce_after_add_to_cart_button', 'bbloomer_product_price_recalculate' );
+ 
+function bbloomer_product_price_recalculate() {
+   global $product;
+   echo '<div id="subtot" style="display:inline-block;">Total: <span></span></div>';
+   $price = $product->get_price();
+   $currency = get_woocommerce_currency_symbol();
+   wc_enqueue_js( "      
+      $('[name=quantity]').on('input change', function() { 
+         var qty = $(this).val();
+         var price = '" . esc_js( $price ) . "';
+         var price_string = (price*qty).toFixed(2);
+         $('#subtot > span').html('" . esc_js( $currency ) . "'+price_string);
+      }).change();
+   " );
+}
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-hide-price-add-cart-logged-users/
+
+/**
+ * @snippet       Hide Price & Add to Cart for Logged Out Users
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli, BusinessBloomer.com
+ * @testedwith    WooCommerce 7
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+  
+add_filter( 'woocommerce_get_price_html', 'bbloomer_hide_price_addcart_not_logged_in', 9999, 2 );
+ 
+function bbloomer_hide_price_addcart_not_logged_in( $price, $product ) {
+   if ( ! is_user_logged_in() ) { 
+      $price = '<div><a href="' . get_permalink( wc_get_page_id( 'myaccount' ) ) . '">' . __( 'Login to see prices', 'bbloomer' ) . '</a></div>';
+      remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+      remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+      add_filter( 'woocommerce_is_purchasable', '__return_false' );
+   }
+   return $price;
+}
+
+
+
+
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-bulk-dynamic-pricing-without-a-plugin/
+
+/**
+ * @snippet       Bulk (Dynamic) Pricing - WooCommerce
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @compatible    WooCommerce 3.8
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_action( 'woocommerce_before_calculate_totals', 'bbloomer_quantity_based_pricing', 9999 );
+ 
+function bbloomer_quantity_based_pricing( $cart ) {
+ 
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+ 
+    if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
+ 
+    // Define discount rules and thresholds
+    $threshold1 = 101; // Change price if items > 100
+    $discount1 = 0.05; // Reduce unit price by 5%
+    $threshold2 = 1001; // Change price if items > 1000
+    $discount2 = 0.1; // Reduce unit price by 10%
+ 
+    foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+      if ( $cart_item['quantity'] >= $threshold1 && $cart_item['quantity'] < $threshold2 ) {
+         $price = round( $cart_item['data']->get_price() * ( 1 - $discount1 ), 2 );
+         $cart_item['data']->set_price( $price );
+      } elseif ( $cart_item['quantity'] >= $threshold2 ) {
+         $price = round( $cart_item['data']->get_price() * ( 1 - $discount2 ), 2 );
+         $cart_item['data']->set_price( $price );
+      }    
+    }
+    
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+https://www.businessbloomer.com/woocommerce-display-total-discount-savings-cart/
+
+/**
+ * @snippet       Display Total Discount @ WooCommerce Cart/Checkout
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli, BusinessBloomer.com
+ * @testedwith    WooCommerce 6
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_action( 'woocommerce_cart_totals_after_order_total', 'bbloomer_show_total_discount_cart_checkout', 9999 );
+add_action( 'woocommerce_review_order_after_order_total', 'bbloomer_show_total_discount_cart_checkout', 9999 );
+  
+function bbloomer_show_total_discount_cart_checkout() {   
+   $discount_total = 0;  
+   foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {         
+      $product = $values['data'];
+      if ( $product->is_on_sale() ) {
+         $regular_price = $product->get_regular_price();
+         $sale_price = $product->get_sale_price();
+         $discount = ( (float)$regular_price - (float)$sale_price ) * (int)$values['quantity'];
+         $discount_total += $discount;
+      }
+   }          
+   if ( $discount_total > 0 ) {
+      echo '<tr><th>You Saved</th><td data-title="You Saved">' . wc_price( $discount_total + WC()->cart->get_discount_total() ) .'</td></tr>';
+   }
+}
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-display-weight-cart-checkout/
+
+/**
+ * @snippet       Display Weight @ Cart & Checkout - WooCommerce
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @compatible    WC 3.9
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+  
+add_action( 'woocommerce_before_checkout_form', 'bbloomer_print_cart_weight' );
+add_action( 'woocommerce_before_cart', 'bbloomer_print_cart_weight' );
+  
+function bbloomer_print_cart_weight() {
+   $notice = 'Your cart weight is: ' . WC()->cart->get_cart_contents_weight() . get_option( 'woocommerce_weight_unit' );
+   if ( is_cart() ) {
+      wc_print_notice( $notice, 'notice' );
+   } else {
+      wc_add_notice( $notice, 'notice' );
+   }
+}
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+https://www.businessbloomer.com/woocommerce-automatically-register-guest-checkouts/
+
+
+/**
+ * @snippet       Register Guest Users @ WooCommerce Checkout
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @testedwith    WooCommerce 6
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+add_action( 'woocommerce_thankyou', 'bbloomer_register_guests', 9999 );
+ 
+function bbloomer_register_guests( $order_id ) {
+   $order = wc_get_order( $order_id );
+   $email = $order->get_billing_email();
+   if ( ! email_exists( $email ) && ! username_exists( $email ) ) {
+      $customer_id = wc_create_new_customer( $email, '', '', array(
+         'first_name' => $order->get_billing_first_name(),
+         'last_name'  => $order->get_billing_last_name(),
+      ));
+      if ( is_wp_error( $customer_id ) ) {
+         throw new Exception( $customer_id->get_error_message() );
+      }
+      wc_update_new_customer_past_orders( $customer_id );
+      wc_set_customer_auth_cookie( $customer_id );
+   } else {
+      $user = get_user_by( 'email', $email );
+      wc_update_new_customer_past_orders( $user->ID );
+      wc_set_customer_auth_cookie( $user->ID );
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-show-sku-cart-page/
+
+/**
+ * @snippet       Show SKU @ WooCommerce Cart
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli
+ * @testedwith    WooCommerce 5
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+ 
+// First, let's write the function that returns a given product SKU
+function bbloomer_return_sku( $product ) {
+   $sku = $product->get_sku();
+   if ( ! empty( $sku ) ) {
+      return '<p>SKU: ' . $sku . '</p>';
+   } else {
+      return '';
+   }
+}
+ 
+// This adds the SKU under cart/checkout item name
+add_filter( 'woocommerce_cart_item_name', 'bbloomer_sku_cart_checkout_pages', 9999, 3 );
+ 
+function bbloomer_sku_cart_checkout_pages( $item_name, $cart_item, $cart_item_key  ) {
+   $product = $cart_item['data'];
+   $item_name .= bbloomer_return_sku( $product );
+   return $item_name;
+}
+ 
+// This adds SKU under order item table name
+add_action( 'woocommerce_order_item_meta_start', 'bbloomer_sku_thankyou_order_email_pages', 9999, 4 );
+ 
+function bbloomer_sku_thankyou_order_email_pages( $item_id, $item, $order, $plain_text ) {
+   $product = $item->get_product();
+   echo bbloomer_return_sku( $product );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+https://www.businessbloomer.com/woocommerce-hide-shipping-options-free-shipping-available/
+
+
+
+
+
+
+
+
+
+==================================================================================================
+
+
+
+
+
+
+
