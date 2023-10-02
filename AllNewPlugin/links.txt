@@ -1,0 +1,91 @@
+https://www.businessbloomer.com/woocommerce-easily-get-product-info-title-sku-desc-product-object/
+
+
+COOL 
+    https://www.businessbloomer.com/woocommerce-apply-coupon-programmatically-product-cart/
+    https://www.businessbloomer.com/woocommerce-shorten-product-titles/
+    https://www.businessbloomer.com/woocommerce-hide-price-add-cart-logged-users/
+    https://www.businessbloomer.com/woocommerce-hide-products-by-custom-field-value/
+    https://www.businessbloomer.com/woocommerce-products-equal-height-shop/
+    https://www.businessbloomer.com/woocommerce-stock-quantity-shortcode/
+    https://www.businessbloomer.com/woocommerce-discount-cheapest-cart-item-bogo50/
+    https://www.businessbloomer.com/woocommerce-count-external-product-clicks/
+    https://www.businessbloomer.com/woocommerce-ajax-add-to-cart-quantity/
+    https://www.businessbloomer.com/woocommerce-create-an-order-from-another-website/
+    https://www.businessbloomer.com/woocommerce-how-to-customize-checkout-for-conversions/
+    https://www.businessbloomer.com/woocommerce-cart-checkout-same-page/
+    https://www.businessbloomer.com/woocommerce-remove-rename-add-default-sorting-options-shop/
+    https://www.businessbloomer.com/woocommerce-edit-product-tabs-labels/
+
+SEARCH PERMA RELATED
+    https://www.businessbloomer.com/woocommerce-add-custom-search-bar-headerfooter/
+    https://www.businessbloomer.com/woocommerce-search-by-custom-field/
+    https://www.businessbloomer.com/woocommerce-redirect-search-to-custom-url/
+    https://www.businessbloomer.com/woocommerce-alter-product-search-manual-orders/
+    https://www.businessbloomer.com/woocommerce-how-to-change-permalinks/
+    https://www.businessbloomer.com/woocommerce-change-product-permalinks-shop-loop-pages/
+
+
+TO DO ADD 
+    https://www.businessbloomer.com/woocommerce-get-variations-by-product-category-tag/
+    https://www.businessbloomer.com/woocommerce-check-product-category-cart/
+    https://www.businessbloomer.com/woocommerce-product-id-belongs-to-grouped-product/
+    https://www.businessbloomer.com/woocommerce-easily-check-product-id-cart/
+    https://www.businessbloomer.com/woocommerce-add-need-spend-x-get-free-shipping-cart-page/
+    https://www.businessbloomer.com/woocommerce-load-more-related-products-ajax/
+    https://www.businessbloomer.com/woocommerce-set-product-price-based-on-other-products/
+    https://www.businessbloomer.com/woocommerce-replace-variable-price-with-variation-price/
+    https://www.businessbloomer.com/woocommerce-check-if-products-belongs-to-category-tag/
+    https://www.businessbloomer.com/woocommerce-set-override-product-price-programmatically/
+    https://www.businessbloomer.com/woocommerce-get-return-all-product-ids/
+    https://www.businessbloomer.com/woocommerce-how-to-create-a-new-product-type/
+    https://www.businessbloomer.com/woocommerce-display-prices-now-save/
+
+
+
+Related Prods
+    https://www.businessbloomer.com/woocommerce-load-more-related-products-ajax/
+    https://www.businessbloomer.com/woocommerce-disable-related-products-shuffle/
+    https://www.businessbloomer.com/woocommerce-custom-related-products/
+
+
+To DO ADD END GAME
+    https://www.businessbloomer.com/woocommerce-display-product-specific-tc-checkout/
+    https://www.businessbloomer.com/woocommerce-display-products-purchased-user/
+    https://www.businessbloomer.com/woocommerce-exclude-product-from-discount-coupons/
+    https://www.businessbloomer.com/woocommerce-add-new-subpage-wordpress-admin-dashboard/
+    https://www.businessbloomer.com/woocommerce-add-checkout-fees-based-on-radio-button-choice-ajax/
+
+
+
+
+
+
+ADDED
+    https://www.businessbloomer.com/woocommerce-always-display-single-variation-price/
+    https://www.businessbloomer.com/woocommerce-recently-viewed-products-shortcode/
+    https://www.businessbloomer.com/woocommerce-add-tab-single-product-page/
+    https://www.businessbloomer.com/woocommerce-add-content-additional-information-tab/
+    https://www.businessbloomer.com/woocommerce-get-currently-selected-variation-id/
+    
+    https://www.businessbloomer.com/woocommerce-add-custom-field-product-variation/
+    https://www.businessbloomer.com/woocommerce-product-add-ons-without-plugin/
+
+
+    ?
+        https://www.businessbloomer.com/woocommerce-order-again-my-account-orders/
+
+
+EXTRA STUFF
+    https://www.businessbloomer.com/woocommerce-display-free-instead-0-00-empty-price/
+    https://www.businessbloomer.com/woocommerce-display-products-purchased-user/
+    https://www.businessbloomer.com/woocommerce-explode-product-tabs/
+    https://www.businessbloomer.com/woocommerce-hide-attribute-single-product/
+    https://www.businessbloomer.com/woocommerce-stock-history-product/
+    https://www.businessbloomer.com/woocommerce-dynamic-variable-product-attributes/
+    https://www.businessbloomer.com/woocommerce-remove-clear-button-variable-product-page/
+    https://www.businessbloomer.com/woocommerce-custom-field-quick-edit/
+    https://www.businessbloomer.com/woocommerce-add-custom-field-to-bulk-actions-edit/
+
+
+

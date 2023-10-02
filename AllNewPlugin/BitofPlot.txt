@@ -1,0 +1,11 @@
+
+
+
+
+Add Product Date to Cart    
+    woocommerce_add_cart_item_data
+        add_filter( 'woocommerce_add_cart_item_data', 'hwn_add_gift_note_to_cart', 10, 3 );
+    woocommerce_get_item_data
+Order Line Item
+    woocommerce_checkout_create_order_line_item
+    

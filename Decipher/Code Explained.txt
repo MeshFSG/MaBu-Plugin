@@ -8,4 +8,151 @@ Starts with
     >bulkOrderAndQuantity.php file
 
 
+
+newBulkOrderAndQuantity.php
+    function get_min_max ($$ss_col, $ss_table_name)
+        |- ???????????????????
+    add_action('wp_head', 'bulkcss');
+        function bulkcss() {
+            global $product;
+            if (is_product()) {
+            }
+        }
+            |- ?????????????????????????
+
+    LINE 108 -
+        |- WHY?>> jQuery("form#bulkvariationform .wc-pao-addons-container").remove();
+            |- What is .wc-pao-addons-container ???
+    LINE 162 - AJAX does "check_availabilty_stock" on color_pick_radio.click
+        |- 
+        LINE 183 what is jQuery(".outstock").remove();
+        LINE 184 - SETTINGS THE PRODUCT IMAGE AFTER CLICK
     
+    NAME    
+    function get_min_max($ss_col, $ss_table_name)                           [ x ]   [ ]     [ ]
+        |- 
+    function bulkcss()                                                      [ x ]   [ ]     [ ]
+        |-                                                              1st     2nd     Done
+    function ss_custom_js_frontend()                                        [ x ]   [ ]     [ ]
+        |- All the Frontend JS related updates I believe it to be.
+    function check_availabilty_stock()                                      [ x ]   [ ]     [ ]
+        |-
+    function add_bulk_order_button()                                        [ ]     [ ]     [ ]
+        |-
+    function find_matching_product_variation_id($proudct_id, $attributes)   [ x ]   [ ]     [ ]
+        |-
+    function sss_jam_addtocart_message($count)                              [ x ]   [ ]     [ ]
+        |- 
+    function sss_jam_bulk_OrderQuantity()                                   [ ]     [ ]     [ ]
+        |- 
+    
+
+    ID / CLASSES REFFED -
+
+        .bulktablebody1         =   .bulk_size_table
+        #bulkvariationform      =   
+            |- The complete form
+        .variations1            =   .color_size_wrapper
+        .bulkorderradio         =   .color_pick_radio
+        .bulk_size_table        =   .bulk_size_table
+
+
+
+form.variations_form.cart
+.wc-pao-addons-container
+
+
+
+
+
+________________________________________________________________________________________________________________________
+Cart.php
+
+    FUNCTIONS
+        add_filter( 'woocommerce_cart_item_name', 'custom_cart_item_name', 10, 3 );
+        function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
+        ------
+        add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
+        function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
+        ------
+        add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);
+        function so_32457241_before_order_itemmeta($item_id, $item, $_product)
+        ------
+        function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen)
+        ------
+        add_filter('woocommerce_cart_item_price', 'alie_wpd_show_regular_price_on_cart', 30, 3);
+        function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key)
+        ------
+        add_action( 'woocommerce_before_calculate_totals', 'set_cart_item_calculated_price', 10, 1 );
+        function set_cart_item_calculated_price( $cart_values )
+        ------
+        add_filter( 'woocommerce_cart_item_name', 'customizing_cart_item_data', 10, 3);
+        function customizing_cart_item_data( $item_name, $cart_item, $cart_item_key )
+            |- Adds the Product Title and the Products Description like Color and Size.
+            
+        ------
+    ___________________________________________________________________________________________________________________
+
+    ID / CLASSES REFFED -
+
+
+
+___________________________________________________________________________________________________________________
+    FUNCTION EXPLAIN
+        set_cart_item_calculated_price( $cart_values )
+                ADDED TO -> woocommerce_before_calculate_totals
+
+
+
+                // ERROR CHECKS THE MINIMUM AMOUNT IN CART
+	            //  if ($product_less_then_12) echo "<script>alert('No discount will be applicable if the QTY sum of a product is less then 12.'); </script>";
+    ------
+        customizing_cart_item_data( $item_name, $cart_item, $cart_item_key )
+            |- 
+
+    ------
+
+___________________________________________________________________________________________________________________
+
+
+
+
+================================
+ERROR TRACE=====================
+__________________________
+
+
+
+$product_reg_price = $_product->get_regular_price();
+$get_discount_val_base_on_qunty
+        if (!empty($quantity_base_discount)) {
+            $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, true);
+        }
+
+$get_addons_price_base_on_qunty
+        if (!empty($screen_print) && $jam_decoration == 'screen-print-3') {
+            // get price for screen printing addos
+            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+        } elseif ( !empty($embroidery) && $jam_decoration == 'embroidery-2') {
+            // get price for screen printing addos
+            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+        } else {
+            $get_addons_price_base_on_qunty = 0;
+        }
+
+get_discount_by_qunat_and_plus_addons
+
+
+$jam_decoration
+
+
+
+$quantity_base_discount
+
+
+
+        $dis_price =  round(
+                            $product_reg_price - (
+                                                $product_reg_price 
+                                                * $get_discount_val_base_on_qunty / 100), 2) 
+                                                            + $get_addons_price_base_on_qunty;
