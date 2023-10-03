@@ -1,2 +1,2 @@
-# Mani-Bulk-Plugin
+# M-Bulk-Plugin
  
