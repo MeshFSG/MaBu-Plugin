@@ -19,3 +19,4 @@ function ss_product_custom_js_()
 } // func
 
 add_action('wp_footer', 'ss_product_custom_js_');
+

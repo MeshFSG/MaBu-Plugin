@@ -1,38 +1,34 @@
 <?php
 
-/////////////SHOR CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
-
+/////////////SHOW CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
 // Add custom fields values under cart item name in cart
+
 add_filter( 'woocommerce_cart_item_name', 'custom_cart_item_name', 10, 3 );
 function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
     if( ! is_cart() )
         return $item_name;
-
-
-        //  echo "<pre>";
+        // PRODUCT DECORATION BEING ADDED
         //  print_r($cart_item['wdm_name']);
-        
         $custom_details = json_decode(stripslashes($cart_item['wdm_name']));
-
-        //  echo "<pre>";
         //  print_r($custom_details);
-        //  exit();
-
-        // echo "<br>";
-
         $html = '';
+
         if (!empty($custom_details)) {
-
-            $html .= "<table border='1' class='shop_table shop_table_responsive cts_crt_tab' style='font-size:12px;margin-top: 15px;'><tr style='height: auto; background-color: #333645;color: #fff;text-align: center;'><th>Location</th><th>Color</th></tr>";
+            $html .= "
+                <table border='1' class='shop_table shop_table_responsive cts_crt_tab' style='font-size:12px;margin-top: 15px;'>
+                    <tr style='height: auto; background-color: #333645;color: #fff;text-align: center;'>
+                        <th>Location</th>
+                        <th>Color</th>
+                    </tr>";
             foreach ($custom_details as $key => $value) {
-
                 $Location =  $value[0];
                 $color = $value[1];
                 $arr[$Location] = $color;
-                $html .= "<tr style='height: auto;'>
-                <th style='text-align: center;'>" . $Location . "</th>
-                <th style='text-align: center;'>" . $color . "</th>
-            </tr>";
+
+                $html .=    "<tr style='height: auto;'>
+                                <th style='text-align: center;'>" . $Location . "</th>
+                                <th style='text-align: center;'>" . $color . "</th>
+                            </tr>";
 
                 $item_data[] = array(
                     'key'   => $Location,
@@ -41,6 +37,7 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
             }
             $html .= "</table>";
         }
+
         echo $html;
 
     // return $item_name;
@@ -49,10 +46,7 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
 // ///////////// SAVE CUSTOM DATA INTO DATABASE AFTER ORDER PLACING ///////////////
 
 add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
-
-function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
-{
-
+function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order) {
     if (array_key_exists('wdm_name', $values)) {
         $item->add_meta_data('_wdm_name', $values['wdm_name']);
     }
@@ -62,6 +56,7 @@ function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values
 // ////////////////// SHOW CUSTOM META INTO ADMIN ORDER PAGE////////////////////////
 
 add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);
+
 function so_32457241_before_order_itemmeta($item_id, $item, $_product)
 {
 
