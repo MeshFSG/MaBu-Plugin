@@ -302,13 +302,6 @@ function add_bulk_order_button()
 	$product_variations = $product->get_available_variations();
 	$checkVariationAvailable = count($product_variations);
 	
-	
-		   
-	
-	
-	
-	
-
 	if ($checkVariationAvailable > 0) {
 ?>
 <div id='bulkorderformshow'>
@@ -327,12 +320,8 @@ function add_bulk_order_button()
 										   $attrName = $getData['name'];
 										   sort($getData['options']);
 										   $attrIds = $getData['options'];
-										   if (str_contains($key, 'size'))
-										   
-										   {
-
+										   if (str_contains($key, 'size')) {
 					?>
-		
 					<td class="label bulkorder-size-attr">
 						<label><?= str_replace('pa_', '', $key); ?></label>
 
@@ -348,7 +337,6 @@ function add_bulk_order_button()
 													   $obj = get_term_by('id', $singleId, $key);
 													//    echo "<pre>";
 													//   print_r($obj);
-													 	
 													   $termslug = $obj->slug;
 													   $termname = $obj->name;   
 												   } else {
@@ -418,16 +406,11 @@ function add_bulk_order_button()
 											   foreach ($attrIds as $elsesingleId) {
 												   $obj3 = get_term_by('id', $elsesingleId, $key);
 												   echo $termname = $obj3->name;
-												   $termslug = $obj3->slug;
-												   
-					?>							   
-												   
-
-			
+												   $termslug = $obj3->slug;												   
+					?>							   			
 			<option value="<?= $termslug; ?>" class="attached enabled"><?= $termname; ?></option>
 			<?php
 											   }
-	
 			?>
 			</select></td>
 		<?php
@@ -437,7 +420,6 @@ function add_bulk_order_button()
 		</tr>
 	</tbody>
 </table>
-
 <div class="deccart_option_wrapper">
 	
 
@@ -455,9 +437,7 @@ function add_bulk_order_button()
 	<?php
 									   do_action('sss_jam_custom_html');
 	?>
-	
 	</div>
-	
 	<button type="submit" id="bulk_submit_cart_button" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit"><?= __('Add to cart', 'sss_jam'); ?></button>
 </div>
 </div>
@@ -471,7 +451,6 @@ function add_bulk_order_button()
 	} //check variation available end here
 
 	endif; //is_product
-
 }
 
 /**

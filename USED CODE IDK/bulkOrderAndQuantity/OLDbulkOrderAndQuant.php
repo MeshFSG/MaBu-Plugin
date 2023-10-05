@@ -301,13 +301,6 @@ function add_bulk_order_button()
 	$attr =   $product->get_variation_attributes();
 	$product_variations = $product->get_available_variations();
 	$checkVariationAvailable = count($product_variations);
-	
-	
-		   
-	
-	
-	
-	
 
 	if ($checkVariationAvailable > 0) {
 ?>
@@ -327,12 +320,8 @@ function add_bulk_order_button()
 										   $attrName = $getData['name'];
 										   sort($getData['options']);
 										   $attrIds = $getData['options'];
-										   if (str_contains($key, 'size'))
-										   
-										   {
-
+										   if (str_contains($key, 'size')) {
 					?>
-		
 					<td class="label bulkorder-size-attr">
 						<label><?= str_replace('pa_', '', $key); ?></label>
 
@@ -348,7 +337,6 @@ function add_bulk_order_button()
 													   $obj = get_term_by('id', $singleId, $key);
 													//    echo "<pre>";
 													//   print_r($obj);
-													 	
 													   $termslug = $obj->slug;
 													   $termname = $obj->name;   
 												   } else {

@@ -3,7 +3,6 @@
 
     add_action("sss_jam_custom_html", "ale_before_add_to_cart_btn");
 
-
     function ale_before_add_to_cart_btn()
     {
 		global $wpdb;
