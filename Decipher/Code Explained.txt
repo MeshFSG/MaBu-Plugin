@@ -8,7 +8,59 @@ Starts with
     >bulkOrderAndQuantity.php file
 
 
+PLUGIN FLOW
+    newBulkOrderAndQuantity.php
+        function ss_custom_js_frontend()
+            |-- Updates UI with interaction of Color and Size input
+                |-- function qtyval() {}
+                |-- Color Radio Pick does AJAX update with action "check_availability_stock"
+        function check_availability_stock()
+            |-
+        function add_bulk_order_button()
+            |- The UI Layout for the order
+            |-   do_action('Show_Discount_On_Product_Page');
+                    |-
+            |-   do_action('showdec');
+                    |-
+            |-   do_action('sss_jam_custom_html');
+                    |-
 
+
+
+    ID / CLASSES REFFED -
+        #bulkorderformshow          =
+        #bulkvariationform          =   
+            |- The complete form
+        .variations1                =   .color_size_wrapper
+        .bulktablebody              =
+            |- Main Body wrapper
+            |- do_action('Show_Discount_On_Product_Page');
+        .variations1 (lower)        =   .size_inputs_wrapper
+        .bulktablebody1             =   .bulk_size_table
+        .bulkorderradio             =   .color_pick_radio
+        button.bulksubmit           =
+            |- Submit Button
+        .bulk_add_to_cart_button    =
+            |- <?= __('Add to cart', 'sss_jam'); ?>
+        .bulkorder-size-attr        =
+        .bulkorder-colors-variation =
+        .value1                     =   .size_value
+        #bulkcolore                 =   #bulkcolor
+        .colorspan
+        .tooltiptext
+
+        .deccart_option_wrapper     =
+        .decshowoption              =
+            |- do_action('showdec');
+        .bulk_variation_wrap        =
+        #dec_opt_div                =
+            |- do_action('sss_jam_custom_html');
+
+
+
+
+FILES---------------------------------------
+________________________________________________________________
 newBulkOrderAndQuantity.php
     function get_min_max ($$ss_col, $ss_table_name)
         |- ???????????????????

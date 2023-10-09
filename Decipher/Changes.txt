@@ -1,0 +1,5 @@
+
+
+jQuery("<div class='wc-pao-addons-container'>" + jQuery('.wc-pao-addons-container').html() + "</div>").insertAfter('#bulkvariationform > table.color_size_wrapper');
+v
+jQuery("<div class='wc-pao-addons-container'>" + jQuery('.wc-pao-addons-container').html() + "</div>").insertAfter('#bulkvariationform > table.color_size_wrapper');

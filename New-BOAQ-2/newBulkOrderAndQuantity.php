@@ -6,20 +6,11 @@ Plugin Name: Bulk Quantity & Wc Custom Addons
 
 register_activation_hook(__FILE__, 'ss_create_table_custom'); 
 register_activation_hook(__FILE__, 'create_imprint_loc_color_attribute_taxonomies');
-register_deactivation_hook( __FILE__, 'ss_pluginprefix_deactivate' );
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// INCLUDE EXTERNAL FILES /////////////////////////////
-include(plugin_dir_path(__FILE__) . '/assets/wcMetas/custm_meta_boxes.php');
-include(plugin_dir_path(__FILE__) . '/assets/inc/function_file_code.php');
-// include(plugin_dir_path(__FILE__) . '/assets/inc/product_base_discount_meta_box.php');
-include(plugin_dir_path(__FILE__) . '/assets/settingPages/qty-base-discount.php');
-include(plugin_dir_path(__FILE__) . '/assets/inc/product_page_js.php');
-include(plugin_dir_path(__FILE__) . '/assets/inc/cart-page.php');
-include(plugin_dir_path(__FILE__) . '/assets/inc/customJs.php');
+// register_activation_hook(__FILE__, 'activate'); //admin/settings/qty-base-discount.php
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ONE TIME CODE RAN /////////////////////////////
+register_deactivation_hook( __FILE__, 'ss_pluginprefix_deactivate' );
 function ss_pluginprefix_deactivate() {
 	delete_option('run_only_once_01');
 }
@@ -72,153 +63,166 @@ function get_min_max ($ss_col, $ss_table_name) {
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// INCLUDE EXTERNAL FILES /////////////////////////////
+include(plugin_dir_path(__FILE__) . '/assets/wcMetas/custm_meta_boxes.php');
+include(plugin_dir_path(__FILE__) . '/assets/inc/function_file_code.php');
+// include(plugin_dir_path(__FILE__) . '/assets/inc/product_base_discount_meta_box.php');
+include(plugin_dir_path(__FILE__) . '/assets/settingPages/qty-base-discount.php');
+include(plugin_dir_path(__FILE__) . '/assets/inc/product_page_js.php');
+include(plugin_dir_path(__FILE__) . '/assets/inc/cart-page.php');
+include(plugin_dir_path(__FILE__) . '/assets/inc/customJs.php');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ABSPATH? /////////////////////////////////////////////////////////////
 if (!defined('ABSPATH')) {
 	exit;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// BULKCSS  /////////////////////////////////////////////////////////////
-add_action('wp_head', 'bulkcss');
-function bulkcss() {
-	global $product;
-	if (is_product()) {
-	}
-}
+// BULKCSS  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////.........................................................................................................................................;;;;;;;;;//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]][';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;/////////////////////////////////////////////////////
+	// add_action('wp_head', 'bulkcss');
+	// function bulkcss() {
+	// 	global $product;
+	// 	if (is_product()) {
+	// 	}
+	// }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ss_custom_js_frontend /////////////////////////////
+// SS_CUSTOM_JS_FRONTED /////////////////////////////
 add_action('wp_footer', 'ss_custom_js_frontend');
 function ss_custom_js_frontend() {
 	// check if its a product
 	if (is_product()) {
 		global $product;
 		?>
-			<script type="text/javascript">
-                // DISABLE INPUT BOX WITH NO STOCK CHOICES
-				jQuery(window).ajaxComplete(function() {
-					setTimeout(function() {
-						jQuery('.bulk_size_table .zerostock input').attr('disabled', true)
-						jQuery('.bulk_size_table .zerostock input').attr('style', 'cursor: not-allowed;')
-					}, 500)
-				});
-                //
-				jQuery(document).ready(function() {
-					// ??????
-					jQuery("form#bulkvariationform .wc-pao-addons-container").remove();
-                    // THE DISPLAYING OF THE CONTENT
-					if (jQuery('form.variations_form.cart .wc-pao-addons-container').length > 0) {
-						jQuery("<div class='wc-pao-addons-container'>" + jQuery('.wc-pao-addons-container').html() + "</div>").insertAfter('#bulkvariationform > table.color_size_wrapper');
-					}
-					// SELECTS THE FIRST COLOR OPTION
-					jQuery("ul.color_pick_radio li:first-child input").trigger('click');
-					// SIZE QUANTITY HERE
-					function qtyval() {
-						var elems = [];
-						jQuery(".bulk_size_table input.input-text.qty.text").each(function() {
-							var val = jQuery(this).val();
-							if (val > 0) {
-								var attr = jQuery(this).attr('data-id');
-								var newarr = [attr, val]
-								elems.push(newarr);
-							}
-						});
-						if (elems.length != 0) {
-							jQuery('#attribute_pa_sizes').val(JSON.stringify(elems));
-						} else {
-							jQuery('#attribute_pa_sizes').val("");
-						}
-					}
-					// If size input val less than 1 make it blank on click?
-					jQuery('.bulk_size_table input').click(function() {
-						if (jQuery(this).val() < 1) {
-							jQuery(this).val('');
-						}
-					});
-					// The Add to Cart button
-					jQuery("button.bulksubmit").click(function(e) {
-						// other code change price end from here
-						var error = false;
-						qtyval();
-						var checkt = jQuery("input#attribute_pa_sizes").val();
-						// Checks If the input for sizes is empty and returns an error 
-						if (checkt == "") {
-							error = true;
-						}
-						// The error that pops up if Add to cart is attempted without a field
-						if (error) {
-							event.preventDefault();
-							alert('Some fields are empty or not selected');
-							return false;
-						} else {
-							return true;
-						}
-					});
-				});
+		<script type="text/javascript">
+			// DISABLE INPUT BOX WITH NO STOCK CHOICES
+			jQuery(window).ajaxComplete(function() {
+				setTimeout(function() {
+					jQuery('.bulk_size_table .zerostock input').attr('disabled', true)
+					jQuery('.bulk_size_table .zerostock input').attr('style', 'cursor: not-allowed;')
+				}, 500)
+			});
+			jQuery(document).ready(function() {
+				// ??????
+				jQuery("form#bulkvariationform .wc-pao-addons-container").remove();
+				// THE DISPLAYING OF THE CONTENT
+				if (jQuery('form.variations_form.cart .wc-pao-addons-container').length > 0) {
+					jQuery("<div class='wc-pao-addons-container'>" + jQuery('.wc-pao-addons-container').html() + "</div>").insertAfter('#bulkvariationform > table.color_size_wrapper');
+				}
+				// SELECTS THE FIRST COLOR OPTION
+				jQuery("ul.color_pick_radio li:first-child input").trigger('click');
 				
-                // BULK ORDER RADIO INPUT CLICK FUNCTION
-				jQuery('.color_pick_radio input').click(function() {
-					let selectvalue = jQuery(this).val();
-					// AJAX
-					jQuery.ajax({
-						type: "post",
-						dataType: "json",
-						url: "<?= admin_url('admin-ajax.php') ?>",
-						data: {
-							action: "check_availabilty_stock",
-							id: <?= $product->get_id(); ?>,
-							selectvalue: selectvalue
-						},
-						beforeSend: function() {
-							jQuery("form#bulkvariationform").attr("style", "opacity: 0.5");
-						},
-						success: function(response) {
-							if (response) {
-								jQuery(".bulk_size_table input").attr('placeholder', "0");
-								jQuery(".bulk_size_table input").attr('max', "0");
-							}
-							let qtyobj = response[0];
-							let imgobj = response[1];
-							let image = imgobj.fullimage;
-							jQuery(".outstock").remove();
-							if (image != '') {
-								jQuery('.woocommerce-product-gallery .woocommerce-product-gallery__image').attr('data-thumb', image);
-								jQuery('.woocommerce-product-gallery img').attr('src', image);
-								jQuery('.woocommerce-product-gallery a').attr('href', image);
-								jQuery(".woocommerce-product-gallery img.wp-post-image.lazyautosizes.lazyloaded").attr('data-src', image).attr('srcset', image).attr('data-orig-src', image).attr('data-large_image', image).attr('data-srcset', image);
-							}
-							jQuery('.bulk_size_table input').removeAttr('disabled')
-							.removeAttr('style');
-							jQuery("form#bulkvariationform").removeAttr("style");
-							jQuery(".bulk_size_table td").removeClass('AvailableAllTime');
-							jQuery(".bulk_size_table label").removeClass('AvailableAllTime');
-							jQuery(".bulk_size_table td").removeClass('zerostock');
-							jQuery('.bulk_size_table label').addClass('zerostock');
-
-							jQuery.each(qtyobj, function(index, value) {
-								jQuery('.bulk_size_table input').each(function() {
-									const getdataid = jQuery(this).data('id');
-									if (index == getdataid) {
-										jQuery(this).parent().removeClass('zerostock');
-										jQuery(this).parent().addClass('AvailableAllTime');
-									}
-								});
-
-								if (qtyobj && Object.keys(qtyobj).length > 0 ) {
-									jQuery(".bulk_size_table input[data-id='" + index + "']").attr('max', value);
-								}
-
-							});
+				// SIZE QUANTITY HERE
+				function qtyval() {
+					var elems = [];
+					jQuery(".bulk_size_table input.input-text.qty.text").each(function() {
+						var val = jQuery(this).val();
+						if (val > 0) {
+							var attr = jQuery(this).attr('data-id');
+							var newarr = [attr, val]
+							elems.push(newarr);
 						}
-					})
+					});
+					if (elems.length != 0) {
+						jQuery('#attribute_pa_sizes').val(JSON.stringify(elems));
+					} else {
+						jQuery('#attribute_pa_sizes').val("");
+					}
+				}
+				// If size input val less than 1 make it blank on click?
+				jQuery('.bulk_size_table input').click(function() {
+					if (jQuery(this).val() < 1) {
+						jQuery(this).val('');
+					}
+				});
+				// The Add to Cart button
+				jQuery("button.bulksubmit").click(function(e) {
+					// other code change price end from here
+					var error = false;
+					qtyval();
+					var checkt = jQuery("input#attribute_pa_sizes").val();
+					// Checks If the input for sizes is empty and returns an error 
+					if (checkt == "") {
+						error = true;
+					}
+					// The error that pops up if Add to cart is attempted without a field
+					if (error) {
+						event.preventDefault();
+						alert('Some fields are empty or not selected');
+						return false;
+					} else {
+						return true;
+					}
+				});
+			});
+			
+			// BULK ORDER RADIO INPUT CLICK FUNCTION
+			jQuery('.color_pick_radio input').click(function() {
+				let selectvalue = jQuery(this).val();
+				// AJAX
+				jQuery.ajax({
+					type: "post",
+					dataType: "json",
+					url: "<?= admin_url('admin-ajax.php') ?>",
+					data: {
+						action: "check_availabilty_stock",
+						id: <?= $product->get_id(); ?>,
+						selectvalue: selectvalue
+					},
+					beforeSend: function() {
+						jQuery("form#bulkvariationform").attr("style", "opacity: 0.5");
+					},
+					success: function(response) {
+						if (response) {
+							jQuery(".bulk_size_table input").attr('placeholder', "0");
+							jQuery(".bulk_size_table input").attr('max', "0");
+						}
+						let qtyobj = response[0];
+						let imgobj = response[1];
+						let image = imgobj.fullimage;
+						jQuery(".outstock").remove();
+						if (image != '') {
+							jQuery('.woocommerce-product-gallery .woocommerce-product-gallery__image').attr('data-thumb', image);
+							jQuery('.woocommerce-product-gallery img').attr('src', image);
+							jQuery('.woocommerce-product-gallery a').attr('href', image);
+							jQuery(".woocommerce-product-gallery img.wp-post-image.lazyautosizes.lazyloaded").attr('data-src', image).attr('srcset', image).attr('data-orig-src', image).attr('data-large_image', image).attr('data-srcset', image);
+						}
+						jQuery('.bulk_size_table input').removeAttr('disabled')
+						.removeAttr('style');
+						jQuery("form#bulkvariationform").removeAttr("style");
+						jQuery(".bulk_size_table td").removeClass('AvailableAllTime');
+						jQuery(".bulk_size_table label").removeClass('AvailableAllTime');
+						jQuery(".bulk_size_table td").removeClass('zerostock');
+						jQuery('.bulk_size_table label').addClass('zerostock');
 
+						jQuery.each(qtyobj, function(index, value) {
+							jQuery('.bulk_size_table input').each(function() {
+								const getdataid = jQuery(this).data('id');
+								if (index == getdataid && value > 0) {
+									jQuery(this).parent().removeClass('zerostock');
+									jQuery(this).parents('td').addClass('AvailableAllTime');
+									jQuery(this).parent().addClass('AvailableAllTime');
+								}
+							});
+
+							if (qtyobj && Object.keys(qtyobj).length > 0 ) {
+								jQuery(".bulk_size_table input[data-id='" + index + "']").attr('max', value);
+							}
+
+						});
+					}
 				})
+			})
 
-			</script>
+		</script>
 		<?php
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// CHECK STOCK AVAILABILITY /////////////////////////////
 add_action('wp_ajax_check_availabilty_stock', 'check_availabilty_stock');
 add_action('wp_ajax_nopriv_check_availabilty_stock', 'check_availabilty_stock');
@@ -257,24 +261,69 @@ function check_availabilty_stock() {
 				$matchkey = array();
 				$getsizekey = array_filter(array_keys($attributes_arr), function ($var) {
 					if (str_contains(strtolower($var), 'size')) {
-						//return array key
-						return $var;
+						return $var;  //return array key
 					}
 				});
 				$reindexarr = array_values($getsizekey);
 				$size =  $attributes_arr[$reindexarr[0]];
 				$vailabilityarr[$size] = $stock_qty;
 			}
-		} 
-	}
+		}  // Inner Loop
+	} // Outer Loop
 
 	$array = array($vailabilityarr, $fullimage);
 	echo json_encode($array);
 	die();
-
 }
 
+
+////////////////////////////////////////////////////////////////////////////////////
+//////// SHOW DECORATION BUTTON SHOWN ON PRODUCT PAGE
+/// TOP ON SHOWS ON ALL LOWER IS USING A HIDE EFFECT IF TAG NOT PRESENT
+add_action( 'showdec', 'showhidedecopt', 1);
+function showhidedecopt() {
+	echo '
+	<div class="decshowwrapper">
+		<div>
+			<button
+				type="button"
+				id="dectoggle"
+				class="deconoff"
+			>
+				Add Your Logo
+			</button>
+		</div>
+	</div>
+	';
+}
+function disallow_blank_if_product_brand_requires() {
+	if ( has_term( 'SDNS', 'product_tag' ) ) {
+		echo '<button id="hiddentrigger" class="hiddentrigger"/>';
+	} else {
+		echo '<div class="decshowwrapper">
+			<div>
+				<button
+					type="button"
+					id="dectoggle"
+					class="deconoff"
+				>
+					Add Your Logo
+				</button
+			</div>
+		</div>
+	';
+	}
+}
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// BULK ORDER BUTTON /////////////////////////////
+/// INCLUDES do_action -- 
+///						showdec
+///
 add_action('woocommerce_before_add_to_cart_form', 'add_bulk_order_button', 1);
 function add_bulk_order_button() {
 	global $product, $post;
@@ -291,7 +340,7 @@ function add_bulk_order_button() {
 					<input type='hidden' id='attribute_pa_sizes' name='attribute_pa_sizes[]' value=''>
 					<input type='hidden' name='proid' value='<?= $product->id; ?>'>
 
-					<table class='variations1' width='100%' cellspacing='0'>
+					<table class='color_size_wrapper' width='100%' cellspacing='0'>
 						<tbody class='bulktablebody'>
 							<?php echo do_action('Show_Discount_On_Product_Page'); ?>
 							<tr>
@@ -303,52 +352,51 @@ function add_bulk_order_button() {
 										sort($getData['options']);
 										$attrIds = $getData['options'];
 										if (str_contains($key, 'size')) {
-								?>
-												<td class="label bulkorder-size-attr">
+											?>
+											<td class="label bulkorder-size-attr">
+												<label>
+													<?= str_replace('pa_', '', $key); ?>
+												</label>
 
+												<table class='size_inputs_wrapper' cellspacing='0'>
+													<tbody class='bulk_size_table'>
+														<?php
+															//for quantity size input
+															$table .= '<tr>';
+															foreach ($attrIds as $singleId) {
+														
+																$check_if_its_global_or_created = is_integer($singleId);
+													
+																if ($check_if_its_global_or_created) {
+																	$obj = get_term_by('id', $singleId, $key);
+																	$termslug = $obj->slug;
+																	$termname = $obj->name;
+																} else {
+																	$termslug = $termname = $singleId;
+																}
+
+																?>
+																<td class="size_value">`
+																	<label for='<?= trim($termslug); ?>'>
+																			<strong><?= $termname; ?></strong>
+																			<input type="number" class="input-text qty text" id="<?= trim($termslug); ?>" data-id="<?= trim($termslug); ?>" step="1" min="0" max="" name="bulk_ord_quantity[]" value="" title="Qty" size="4" placeholder="" inputmode="numeric">
+																	</label>
+																</td>
+																<?php 
+															}
+																?>
+															</tr>
+													</tbody>
+												</table>
+											</td>
+											<?php
+										} elseif (str_contains($key, 'color')) {
+											?>
+												<td class="label bulkorder-colors-variation">
 													<label>
 														<?= str_replace('pa_', '', $key); ?>
 													</label>
-
-													<table class='variations1' cellspacing='0'>
-														<tbody class='bulktablebody1'>
-															<?php
-																//for quantity size input
-																$table .= '<tr>';
-																foreach ($attrIds as $singleId) {
-															
-																	$check_if_its_global_or_created = is_integer($singleId);
-														
-																	if ($check_if_its_global_or_created) {
-																		$obj = get_term_by('id', $singleId, $key);
-																		$termslug = $obj->slug;
-																		$termname = $obj->name;
-																	} else {
-																		$termslug = $termname = $singleId;
-																	}
-
-																	?>
-																		<td class="value1">`
-																			<label for='<?= trim($termslug); ?>'>
-																					<strong><?= $termname; ?></strong>
-																					<input type="number" class="input-text qty text" id="<?= trim($termslug); ?>" data-id="<?= trim($termslug); ?>" step="1" min="0" max="" name="bulk_ord_quantity[]" value="" title="Qty" size="4" placeholder="" inputmode="numeric">
-																			</label>
-																		</td>
-																	<?php 
-																}
-															?>
-															</tr>
-														<!-- </tbody> -->
-													</table>
-
-												</td>
-
-											<?php
-
-										} elseif (str_contains($key, 'color')) {
-											?>
-												<td class="label bulkorder-colors-variation"><label><?= str_replace('pa_', '', $key); ?></label>
-													<ul class="bulkorderradio">
+													<ul class="color_pick_radio">
 														<?php
 															foreach ($attrIds as $singleId) {
 																$obj = get_term_by('id', $singleId, $key);
@@ -356,17 +404,20 @@ function add_bulk_order_button() {
 																if ($check_if_its_global_or_created) {
 																	$termname = $obj->name;
 																	$termslug = $obj->slug;
-																	$meta = get_term_meta($singleId);
-																	$getcolorobj =  unserialize($meta['_fusion'][0]);
-																	$color = $getcolorobj['attribute_color'];
+																	// $meta = get_term_meta($singleId);
+																	$meta = get_term_meta($singleId, 'product_attribute_color', true);
+																	// $getcolorobj =  unserialize($meta['_fusion'][0]);
+																	// $getcolorobj = unserialize($meta['product_attribute_color'][1]);
+																	// $color = $getcolorobj['attribute_color'];
+																	// $color = $getcolorobj['product_attribute_color'];
+																	$color = $meta;
 																} else {
 																	$singleId = $color = $termslug = $termname = $singleId;
 																}
-
 																?>
 																	<li>
-																		<input type="radio" name="bulk_ord_attribute_pa_color" data-code="<?= $color; ?>" id="bulkcolore<?= $singleId; ?>" value="<?= $termslug; ?>" />
-																		<label for="bulkcolore<?= $singleId; ?>">
+																		<input type="radio" name="bulk_ord_attribute_pa_color" data-code="<?= $color; ?>" id="bulkcolor<?= $singleId; ?>" value="<?= $termslug; ?>" />
+																		<label for="bulkcolor<?= $singleId; ?>">
 																			<span class="colorspan" style="background-color:<?= $color; ?>"></span>
 																			<span class="tooltiptext"><?= $termname; ?></span>
 																		</label>
@@ -375,16 +426,14 @@ function add_bulk_order_button() {
 															}
 														?>
 													</ul>
-												<?php
+													<?php
 												$table .= '</td>';
 										} else { //else if end here
 											?>
 												<td class="label">
-
 													<label>
 														<?= str_replace('pa_', '', $key); ?>
 													</label>
-
 													<select id="<?= $key; ?>" class="value" class="" name="bulk_ord_attribute_<?= $key; ?>" data-attribute_name="attribute_<?= $key; ?>" data-show_option_none="yes" style="display: block;">
 														<?php
 															foreach ($attrIds as $elsesingleId) {
@@ -409,13 +458,25 @@ function add_bulk_order_button() {
 						</tbody>
 					</table>
 
-					<div class="bulk_variation_wrap">
-						<?php
-							do_action('sss_jam_custom_html');
-						?>
-						<button type="submit" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit">
-							<?= __('Add to cart', 'sss_jam'); ?>
-						</button>
+					<div class="deccart_option_wrapper">
+						<div class="decshowoption">
+							<?php
+								do_action('showdec');
+							?>
+						</div>
+								
+						<div class="bulk_variation_wrap">
+
+							<div id="dec_opt_div">
+								<?php
+									do_action('sss_jam_custom_html');
+								?>
+							</div>
+
+							<button type="submit" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit">
+								<?= __('Add to cart', 'sss_jam'); ?>
+							</button>
+						</div>
 					</div>
 
 				</form>
@@ -430,6 +491,8 @@ function add_bulk_order_button() {
 
 	endif; //is_product
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// FIND MATCHING PRODUCT VARIATION /////////////////////////////

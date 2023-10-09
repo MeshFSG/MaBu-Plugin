@@ -228,7 +228,7 @@
 
             function countMaxfields() {
                 var product_sum = 0;
-                jQuery(".bulktablebody1 input.input-text.qty.text").each(function() {
+                jQuery(".bulk_size_table input.input-text.qty.text").each(function() {
                     product_sum += Number(jQuery(this).val());
                 });
 
@@ -423,7 +423,7 @@
                 jQuery("button.bulksubmit").click(function(e) {
 
                     var productQuantity = 0;
-                    jQuery(".bulktablebody1 input.input-text.qty.text").each(function() {
+                    jQuery(".bulk_size_table input.input-text.qty.text").each(function() {
                         productQuantity += Number(jQuery(this).val());
                     });
 
@@ -465,7 +465,7 @@
 
                 }
 
-                jQuery('tbody.bulktablebody1 input').blur(function() {
+                jQuery('tbody.bulk_size_table input').blur(function() {
                     resetAllFields();
                     let maxField_product_sum = countMaxfields();
                     let show = maxField_product_sum[0];
