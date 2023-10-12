@@ -24,6 +24,23 @@ PLUGIN FLOW
                     |-
             |-   do_action('sss_jam_custom_html');
                     |-
+    cart-page.php
+        function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
+            |-
+        function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
+            |-
+        function so_32457241_before_order_itemmeta($item_id, $item, $_product)
+            |-
+        function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, inte $cart_total, $boolean)
+            |- The first if ($boolean) finds the quantity discount group this is apart of.
+            |- The deco selection uses the $obj as a key, $deco as the type of decoration, and $cart_total is the total amount in the cart.
+    
+    function_file_code.php
+        function ale_before_add_to_cart_btn()
+            |- 
+        
+
+
 
 
 
@@ -107,22 +124,13 @@ newBulkOrderAndQuantity.php
         .variations1            =   .color_size_wrapper
         .bulkorderradio         =   .color_pick_radio
         .bulk_size_table        =   .bulk_size_table
-
-
-
-form.variations_form.cart
-.wc-pao-addons-container
-
-
-
-
-
 ________________________________________________________________________________________________________________________
 Cart.php
 
     FUNCTIONS
         add_filter( 'woocommerce_cart_item_name', 'custom_cart_item_name', 10, 3 );
         function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
+            |-- 
         ------
         add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
         function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
@@ -141,11 +149,14 @@ Cart.php
         add_filter( 'woocommerce_cart_item_name', 'customizing_cart_item_data', 10, 3);
         function customizing_cart_item_data( $item_name, $cart_item, $cart_item_key )
             |- Adds the Product Title and the Products Description like Color and Size.
-            
         ------
     ___________________________________________________________________________________________________________________
 
     ID / CLASSES REFFED -
+
+
+
+
 
 
 

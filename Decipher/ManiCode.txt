@@ -121,5 +121,48 @@ BULK VARIATION FORM
         <!-- ///// -->
 
             .bulk_add_to_cart_button bulksubmit [NAME: bulksubmit]
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
