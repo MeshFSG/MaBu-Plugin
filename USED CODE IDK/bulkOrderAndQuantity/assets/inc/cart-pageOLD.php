@@ -91,8 +91,7 @@ function so_32457241_before_order_itemmeta($item_id, $item, $_product)
 
 /////////////////////////DISCOUNT ON CART PAGE ////////////////////////////
 
-function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen)
-{
+function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen) {
     
     if ($boolen) {
         // return $cart_total;

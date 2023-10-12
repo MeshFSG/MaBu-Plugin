@@ -1,16 +1,14 @@
 <?php
-
+new
 /////////////SHOW CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
-// Add custom fields values under cart item name in cart
 
+// Add custom fields values under cart item name in cart
 add_filter( 'woocommerce_cart_item_name', 'custom_cart_item_name', 10, 3 );
 function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
     if( ! is_cart() )
         return $item_name;
         // PRODUCT DECORATION BEING ADDED
-        //  print_r($cart_item['wdm_name']);
         $custom_details = json_decode(stripslashes($cart_item['wdm_name']));
-        //  print_r($custom_details);
         $html = '';
 
         if (!empty($custom_details)) {
@@ -57,8 +55,7 @@ function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values
 
 add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);
 
-function so_32457241_before_order_itemmeta($item_id, $item, $_product)
-{
+function so_32457241_before_order_itemmeta($item_id, $item, $_product) {
 
     $get_custom_field = wc_get_order_item_meta($item_id, '_wdm_name', true);
 
@@ -88,9 +85,7 @@ function so_32457241_before_order_itemmeta($item_id, $item, $_product)
 }
 
 /////////////////////////DISCOUNT ON CART PAGE ////////////////////////////
-
-function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen)
-{
+function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen) {
     
     if ($boolen) {
         // return $cart_total;
@@ -106,7 +101,6 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
     }
     if ($deco == 'screen-print-3') {
 
-        // print_r($index);
         $indexes = rtrim($index, ',');
         $addon_cost = 0;
 
@@ -114,15 +108,12 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
             $qunt_key = explode("-", $key);
             $start_qunt = (int) $qunt_key[0];
             $end_qunt = (int) $qunt_key[1];
-
             if ($cart_total >= $start_qunt && $cart_total <= $end_qunt) {
-
                 foreach (explode(",",$indexes) as $key1 => $value1) {
                     $addon_cost += $obj[$key][$value1 - 1]; 
                 }
                 return $addon_cost;
             }
-            
         }
     } elseif ($deco == 'embroidery-2') {
         foreach ($obj as $key => $value) {
