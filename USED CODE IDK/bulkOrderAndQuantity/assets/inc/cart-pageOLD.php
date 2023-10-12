@@ -49,13 +49,12 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
 
 add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
 
-function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
-{
-
+function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order) {
     if (array_key_exists('wdm_name', $values)) {
         $item->add_meta_data('_wdm_name', $values['wdm_name']);
     }
 }
+
 // ////////////////// SHOW CUSTOM META INTO ADMIN ORDER PAGE////////////////////////
 
 add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);

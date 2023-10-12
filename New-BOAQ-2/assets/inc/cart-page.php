@@ -1,5 +1,5 @@
 <?php
-new
+
 /////////////SHOW CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
 
 // Add custom fields values under cart item name in cart
@@ -45,11 +45,20 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
 
 add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
 function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order) {
-    if (array_key_exists('wdm_name', $values)) {
-        $item->add_meta_data('_wdm_name', $values['wdm_name']);
-    }
-}
 
+    if ( isset( $values['wdm_name'] ) ) {
+		$item->add_meta_data(
+			__( 'Decoration','webkul'),
+			$values['wdm_name'],
+			true
+		);
+	}
+
+    // if (array_key_exists('wdm_name', $values)) {
+    //     $item->add_meta_data('_wdm_name', $values['wdm_name']);
+    // }
+
+}
 
 // ////////////////// SHOW CUSTOM META INTO ADMIN ORDER PAGE////////////////////////
 
@@ -329,8 +338,8 @@ function set_cart_item_calculated_price( $cart_values ) {
             }
         }
         
-        if ($cart_total_qan > 0 && $cart_total_qan < 12 || $cart_total_qan1 > 0 && $cart_total_qan1 < 12)
-            $product_less_then_12 = 1;
+        // if ($cart_total_qan > 0 && $cart_total_qan < 12 || $cart_total_qan1 > 0 && $cart_total_qan1 < 12)
+        //     $product_less_then_12 = 1;
         
         if ($jam_decoration == 'embroidery-2') {
             $item_total_by_dec =  $cart_total_qan;
@@ -357,9 +366,11 @@ function set_cart_item_calculated_price( $cart_values ) {
             $get_addons_price_base_on_qunty = 0;
         }
     
-            //   echo $get_discount_val_base_on_qunty.'discount<br>';
-            //   echo $get_addons_price_base_on_qunty.'addons_price<br>';
+            //      echo $product_reg_price.'regprice';
+            //      echo $get_discount_val_base_on_qunty.'discount<br>';
+            //      echo $get_addons_price_base_on_qunty.'addons_price<br>';
     
+
         $product_reg_price = $_product->get_regular_price();
     
         // CONVERT TO INTEGER
