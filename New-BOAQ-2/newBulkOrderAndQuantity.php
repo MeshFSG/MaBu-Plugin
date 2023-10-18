@@ -464,7 +464,13 @@ function add_bulk_order_button() {
 								
 						<div class="bulk_variation_wrap">
 
-							<div id="dec_opt_div">
+							<div id="dec_opt_div" class="
+									<?php
+										if (has_term( 'SDNS', 'product_tag') ) {
+											echo 'tagged';
+										}
+									?>
+							">
 								<?php
 									do_action('sss_jam_custom_html');
 								?>
@@ -489,7 +495,25 @@ function add_bulk_order_button() {
 	endif; //is_product
 }
 
-
+////////////////////////////////////////////
+add_action('showdec', 'add_blank_bypass' );
+function add_blank_bypass() {
+	if (has_term( 'SDNS', 'product_tag') ) {
+		echo '
+			<div class="decshowwrapper">
+				<div>
+					<button
+						type="button"
+						id="dectoggle"
+						class="deconoff"
+					>
+						Add Your Logo
+					</button>
+				</div>
+			</div>
+		';
+	}
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// FIND MATCHING PRODUCT VARIATION /////////////////////////////

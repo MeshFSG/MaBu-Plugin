@@ -3,8 +3,7 @@
 
     add_action("sss_jam_custom_html", "ale_before_add_to_cart_btn");
 
-    function ale_before_add_to_cart_btn()
-    {
+    function ale_before_add_to_cart_btn() {
 		global $wpdb;
     	$table_screen_print = $wpdb->prefix . "ss_screen_print_cart_product";
 
@@ -125,8 +124,7 @@
 
     add_filter("woocommerce_add_cart_item_data", "wdm_add_item_data", 10, 3);
 
-    function wdm_add_item_data($cart_item_data, $product_id, $variation_id)
-    {
+    function wdm_add_item_data($cart_item_data, $product_id, $variation_id) {
         $cart_item_data["wdm_name"] = $_POST["combo"];
         $cart_item_data["ss_print_count"] = $_POST["ss_print_count"];
         $cart_item_data["jam_decoration"] = $_POST["jam_decoration"];
@@ -137,8 +135,7 @@
 
     add_action("wp_footer", "ale_custom_js_func", 100);
 
-    function ale_custom_js_func()
-    {
+    function ale_custom_js_func() {
         if (!is_product()) {
             return;
         } ?>
@@ -232,12 +229,12 @@
                     product_sum += Number(jQuery(this).val());
                 });
 
-//                 if ( jQuery("#ss_min_qty_arr").length ) {
-                    var ss_min_qty_arr = JSON.parse(jQuery("#ss_min_qty_arr").val());
-                    var ss_max_qty_arr = JSON.parse(jQuery("#ss_max_qty_arr").val());
-                    var ss_amountof_color_arr = JSON.parse(jQuery("#ss_amountof_color_arr").val());
-                    // console.log(ss_amountof_color_arr);
-//                 }
+                //                 if ( jQuery("#ss_min_qty_arr").length ) {
+                                    var ss_min_qty_arr = JSON.parse(jQuery("#ss_min_qty_arr").val());
+                                    var ss_max_qty_arr = JSON.parse(jQuery("#ss_max_qty_arr").val());
+                                    var ss_amountof_color_arr = JSON.parse(jQuery("#ss_amountof_color_arr").val());
+                                    // console.log(ss_amountof_color_arr);
+                //                 }
 
 				var maxField = 1;
 				for (var i = 1; i <= ss_max_qty_arr.length; i++) {
@@ -448,15 +445,17 @@
                     jQuery('input#jam_decoration').val(dec_val);
 
 
-// START HERE
-                    if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
-                        let checkvalue = jQuery("input#ale_combo").val();
-                        if (checkvalue == "") {
-                            alert('Please Select a Combinations');
-                            e.preventDefault();
+                    if ( has_term( 'SDNS', 'product_tag') ) {
+                        checkvalue == "pass"
+                    } else {
+                        if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
+                            let checkvalue = jQuery("input#ale_combo").val();
+                            if (checkvalue == "") {
+                                alert('Please Select a Combinations');
+                                e.preventDefault();
+                            }
                         }
                     }
-// END HERE
 
                 }); //Click function end here
                 function resetAllFields() {

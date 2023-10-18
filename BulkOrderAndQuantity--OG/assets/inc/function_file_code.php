@@ -53,7 +53,14 @@
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////// DISPLAYS THE DECORATION OPTIONS ON THE PRODUCT PAGE //////////////////////////
         if (!empty($get_deco_type)) {
-            echo "<div class='ctm-select-decoration-wrapper'><label>Decoration * </label><select class='ctm-select-decoration' id='ctm-select-decoration'>";
+            echo "<div class='ctm-select-decoration-wrapper'>
+            <label>Decoration * </label>
+            <select class='ctm-select-decoration' id='ctm-select-decoration'>";
+
+            if ( has_term( 'SDNS', 'product_tag') ) {
+                echo "<option value='blank'> Blank </option>"
+            }
+
             foreach ($get_deco_type as $key => $value) {
                 echo "<option value=" .
                     $value .
@@ -151,25 +158,18 @@
     ////////////////////////// ADD CUSTOM META FROM SINGLE PRODUCT PAGE //////////////////////////
         add_filter("woocommerce_add_cart_item_data", "wdm_add_item_data", 10, 3);
 
-        function wdm_add_item_data($cart_item_data, $product_id, $variation_id)
-        {
+        function wdm_add_item_data($cart_item_data, $product_id, $variation_id) {
             $cart_item_data["wdm_name"] = $_POST["combo"];
             $cart_item_data["ss_print_count"] = $_POST["ss_print_count"];
             $cart_item_data["jam_decoration"] = $_POST["jam_decoration"];
             return $cart_item_data;
         }
 
-
-
-
-
-//
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////// CUSTOM JS //////////////////////////
     add_action("wp_footer", "ale_custom_js_func", 100);
 
-    function ale_custom_js_func()
-    {
+    function ale_custom_js_func() {
         if (!is_product()) {
             return;
         } ?>
@@ -231,6 +231,7 @@
                 ///////// variation product count each loop end ////////////
                 // THE NOTIFICATION FOR HAVING NOTHING IN YOUR SELECTION BEFORE CLICKING ADD
                 var colorsswatches;
+
                 if (product_sum == 0) {
                     alert('please fill quantity fields');
                     return;
@@ -246,7 +247,7 @@
                 var wrapper = jQuery('.field_wrapper'); //Input field wrapper
 
                 ////////////////////////////////////////////////////////////////////////
-                ///////// THE REMOVE BUTTON AFTER CLICKING ADD ON THE PRODUCT //////////
+                ///////// THE ADDITION OF THE NEW LOCATION THAT IS SELECTED //////////
                 var fieldHTML = '<div class="ale_field_wrapper1" data-deco="' + dec_val + '">' +
                     '<p class="location_name" data-attr=' + getlocvalue + '>' + getlocvalue.replace('-', ' ') + " <span class='labelbadge'>" + jQuery('#ctm-select-decoration').children(':selected').text() + "</span>" + '</p>' +
                     '<p class="ale_clr_name" data-attr=' + getcolorvalue + '>' + colorsswatches + '</p>' +
@@ -265,7 +266,6 @@
                 }
             }
 
-
             /////////////////////////////////////////////////////////////////////////////////
             ////////////////////// ON countMaxfields JS CODE ////////////////////////////////
             function countMaxfields() {
@@ -279,6 +279,7 @@
                 var ss_amountof_color_arr = JSON.parse(jQuery("#ss_amountof_color_arr").val());
 
 				var maxField = 1;
+
 				for (var i = 1; i <= ss_max_qty_arr.length; i++) {
 					if (product_sum >= ss_min_qty_arr[i] && product_sum <= ss_max_qty_arr[i]) {
 						maxField = ss_amountof_color_arr[i];
@@ -286,18 +287,20 @@
                         maxField = ss_amountof_color_arr[i];
                     }
 				}
+
                 return [maxField, product_sum];
             }
+
             ////////////////////////////////////////////////////////////////////////
             ////////////////////// ON READY JS CODE ////////////////////////////////
             jQuery(document).ready(function() {
                 jQuery('select#ale_none_field').select2();
-
                 resetAllFields();
                 let maxField_product_sum = countMaxfields();
                 let show = maxField_product_sum[0];
                 jQuery('select.ale_color_field option').show();
 
+                // Hides the other screen print color amounts if it doenst reach the limit
                 setTimeout(function() {
                     jQuery('select.ale_color_field option').each(function(i, index) {
                         if (i > show) {
@@ -306,6 +309,8 @@
                     });
                 }, 500);
 
+
+                // checks if a color is selected
                 var attr_color = jQuery('input[name="bulk_ord_attribute_pa_color"]:checked').val();
                 var get_deco_val = jQuery(this).val();
 
@@ -320,12 +325,6 @@
                     jQuery("#ale_color_wraper").empty().html(wrap_select);
                 }
 
--
-////////////////////////////////////////////
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                ////////////////////////////////////////////////////////////////////////////////////////
-
                 if (get_deco_val == "embroidery-2") {
                     jQuery(".ale_clr_names").text("Colors");
                     jQuery('.ale_aft_Adt_btn').css('display', 'none');
@@ -333,11 +332,6 @@
                     jQuery(".ale_clr_names").text("Amount of Colors");
                     jQuery('.ale_aft_Adt_btn').css('display', 'block');
                 }
-////////////////////////////////////////////
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                ////////////////////////////////////////////////////////////////////////////////////////
-
 
                 select2append();
                 //New input field html
@@ -346,23 +340,14 @@
                 //Once add button is clicked
                 
                 jQuery('.add_button').unbind().click(function() {
-
                     var getlocvalue = jQuery(".ale_location_field").val();
                     var getcolorvalue = jQuery(".ale_color_field").val();
                     var clramount = jQuery("#ale_none_field").val();
                     var check_already = jQuery('#ale_combo').val();
-
-                    
-
-
-
-                    ////////////////////////////////////////////////////////////////////////////////////////
                     ////////////// ------------------------------------------------------- /////////////////
                     if(check_already !== "") {
                         check_already = JSON.parse(check_already);
                     }
-
-                    ////////////////////////////////////////////////////////////////////////////////////////
                     ////////////// ------------------------------------------------------- /////////////////
                     for(var count = 0; count < check_already.length; count++ ){
                         if (check_already[count][0].includes(getlocvalue)) {
@@ -370,7 +355,6 @@
                             return;
                         }
                     }
-
                     ////////////////////////////////////////////////////////////////////////////////////////
                     var dec_val = jQuery('#ctm-select-decoration').val();
 
@@ -514,13 +498,19 @@
                     jQuery("input#ss_print_count").val(screen_print_cost);
                     jQuery('input#jam_decoration').val(dec_val);
 
-                    if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
+
+                    if (dev_val == "blank") {
+                        let checkvalue = "blankgood";
+                    }
+                    else if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
                         let checkvalue = jQuery("input#ale_combo").val();
                         if (checkvalue == "") {
                             alert('Please Select a Combinations');
                             e.preventDefault();
                         }
                     }
+
+
 
                 }); //Click function end here
 

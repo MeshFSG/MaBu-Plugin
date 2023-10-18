@@ -1,5 +1,4 @@
 <?php
-new
 /////////////SHOW CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
 
 // Add custom fields values under cart item name in cart
@@ -7,6 +6,7 @@ add_filter( 'woocommerce_cart_item_name', 'custom_cart_item_name', 10, 3 );
 function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
     if( ! is_cart() )
         return $item_name;
+
         // PRODUCT DECORATION BEING ADDED
         $custom_details = json_decode(stripslashes($cart_item['wdm_name']));
         $html = '';
@@ -45,16 +45,25 @@ function custom_cart_item_name( $item_name, $cart_item, $cart_item_key ) {
 
 add_action('woocommerce_checkout_create_order_line_item', 'alie_wdm_add_custom_order_line_item_meta', 10, 4);
 function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order) {
+
+    // I DONT KNOW WHICH ONE TO USE. TOP IS MINE (LONGER) LOWER IS MANI's
+
+    if ( isset( $values['wdm_name'] ) ) {
+        $item->add_meta_data(
+                __( 'Decoration', 'webkul'),
+                $values['wdm_name'],
+                true
+        );
+    }
+
     if (array_key_exists('wdm_name', $values)) {
         $item->add_meta_data('_wdm_name', $values['wdm_name']);
     }
 }
 
-
 // ////////////////// SHOW CUSTOM META INTO ADMIN ORDER PAGE////////////////////////
 
 add_action('woocommerce_after_order_itemmeta', 'so_32457241_before_order_itemmeta', 10, 3);
-
 function so_32457241_before_order_itemmeta($item_id, $item, $_product) {
 
     $get_custom_field = wc_get_order_item_meta($item_id, '_wdm_name', true);
@@ -99,6 +108,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
             }
         }
     }
+    
     if ($deco == 'screen-print-3') {
 
         $indexes = rtrim($index, ',');
@@ -115,11 +125,15 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
                 return $addon_cost;
             }
         }
-    } elseif ($deco == 'embroidery-2') {
+
+    } 
+    elseif ($deco == 'embroidery-2') {
+
         foreach ($obj as $key => $value) {
             $qunt_key = explode("-", $key);
             $start_qunt = (int) $qunt_key[0];
             $end_qunt = (int) $qunt_key[1];
+
             if ($cart_total >= $start_qunt && $cart_total <= $end_qunt) {
                 // echo $obj[$key][0] $index;
                 return $obj[$key][0] * $index;
@@ -127,6 +141,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
             }
         }
     }
+
 } //function end
 
 /////////////////////////////////woocommerce_cart_item_price/////////////////////////////////////
@@ -153,14 +168,13 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
     $get_embroidery_pricing = $wpdb->get_results("SELECT * FROM $embroidery_db_table");
     $get_screenP_pricing = $wpdb->get_results("SELECT * FROM $table_screen_print");
 
-
-
     $quantity_base_discount = array();
     $embroidery = array();
     $screen_print = array();
 
     ///////////////////////////////////GET TAG BASE DISCOUNT CODE ST///////////////////////////////////////
 
+    //////////////////////////// FINDS THE TAG FOR THE DEC AND DISCOUNT IT WILL RECEIVE /////////////////////////
     $product_tags = get_the_terms( $product_ID, 'product_tag' );
     foreach ($product_tags as $value) {
         $result =  $wpdb->get_row(  "SELECT * FROM $table_name WHERE tags_name LIKE '%" . $value->term_id ."%'" );
@@ -177,21 +191,20 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
     }
 
     ///////////////////////////////////GET TAG BASE DISCOUNT CODE END ///////////////////////////////////////
-
+    ////////////// GET IF IT EXISTS AND IS AN ARRAY ////////////////////////////////////////////////////////
     if (!empty($get_embroidery_pricing) && is_array($get_embroidery_pricing)) {
         foreach ($get_embroidery_pricing as $key => $value) {
             $embroidery[$value->ss_min_qty . '-' . $value->ss_max_qty] = array($value->ss_discount_in_per);
         }
     }
+
     if (!empty($get_screenP_pricing) && is_array($get_screenP_pricing)) {
         foreach ($get_screenP_pricing as $key => $value) {
             $screen_print[$value->ss_min_qty_field . '-' . $value->ss_max_qty_field] = explode(",", $value->ss_discount_in_per);
         }
     }
-    
-    // echo "<pre>";
-    // print_r($quantity_base_discount);
 
+    //////////////// TOTALS UP THE QUANTITY FOR EMBROIDERY AND SCREEN PRINT /////////////////////////////////
     foreach ($woocommerce->cart->get_cart() as $key => $cart_item_val) {
         // var_dump($cart_item_val["product_id"]);
         if ($cart_item_val['jam_decoration'] == 'embroidery-2' && $variation_parent_id === $cart_item_val["product_id"]) {
@@ -202,7 +215,7 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
         }
     }
 	
-    
+    ////////////// SETS UP ITEM_TOTAL_BY_DEC TO HOLD THE VALUE OF DECORATED QUANTITY
     if ($jam_decoration == 'embroidery-2') {
         $item_total_by_dec =  $cart_total_qan;
     } elseif ($jam_decoration == 'screen-print-3') {
@@ -211,45 +224,36 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
         $item_total_by_dec = intval($values['quantity']);
     }
 
-    // print_r($embroidery);
     ///////////////////////////////////////////////////////////////////
     if (!empty($quantity_base_discount)) {
         $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, true);
     }
+    ///////////////////////////////////////////////////////////////////
     if (!empty($screen_print) && $jam_decoration == 'screen-print-3') {
         // get price for screen printing addos
         $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
     } elseif ( !empty($embroidery) && $jam_decoration == 'embroidery-2') {
         // get price for screen printing addos
         $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
-        // echo $get_addons_price_base_on_qunty;
     } else {
         $get_addons_price_base_on_qunty = 0;
     }
 
-        //   echo $get_discount_val_base_on_qunty.'discount<br>';
-        //   echo $get_addons_price_base_on_qunty.'addons_price<br>';
-
     $product_reg_price = $_product->get_regular_price();
-    // echo '<pre>';print_r($product_reg_price);echo '</pre>';
 
     $dis_price =  round($product_reg_price - ($product_reg_price * $get_discount_val_base_on_qunty / 100), 2) + $get_addons_price_base_on_qunty;
 
+    $reg_price_with_dec = $product_reg_price + $get_addons_price_base_on_qunty;
+
     $values['data']->set_price($dis_price);
-    
-    // echo "<pre>";
-    // print_r($values);
-    //  echo '<pre>';print_r($get_discount_val_base_on_qunty);echo '</pre>';
-    //  echo '<pre>';print_r($get_addons_price_base_on_qunty);echo '</pre>';
 
-    if ($get_discount_val_base_on_qunty && $get_addons_price_base_on_qunty ){
-        $price_ = "$<del class='ss_del_cls'>" . $product_reg_price . "</del> "  . wc_price($dis_price);
+
+    if ($reg_price_with_dec == $dis_price) {
+        $price_ = $dis_price;
     } else {
-        $price_ = "$" .$product_reg_price;
+        $price_ = "$<del class='ss_del_cls'>" . $product_reg_price . "</del> "  . wc_price($dis_price);
     };
-    // '<span class="wpd-discount-price" style="text-decoration: line-through; opacity: 0.5; padding-right: 5px;">' . $product_reg_price . '</span>' .  wc_price( $dis_price );
-
-
+    
     return $price_;
 
 }

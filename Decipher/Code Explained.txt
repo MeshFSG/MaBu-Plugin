@@ -1,15 +1,25 @@
 
 
 
-
+===================================================================================================
 Starts with
     >assets Folder
 
     >bulkOrderAndQuantity.php file
 
+    >customJS.php & product_page_js.php
+        - These append the lowest price and stock inventory
 
+
+===================================================================================================
+ACTIONS
+    sss_jam_custom_html
+
+
+===================================================================================================
 PLUGIN FLOW
-    newBulkOrderAndQuantity.php
+    _______________________________________________________
+    newBulkOrderAndQuantity.php                         [?]
         function ss_custom_js_frontend()
             |-- Updates UI with interaction of Color and Size input
                 |-- function qtyval() {}
@@ -24,7 +34,8 @@ PLUGIN FLOW
                     |-
             |-   do_action('sss_jam_custom_html');
                     |-
-    cart-page.php
+    _______________________________________________________
+    cart-page.php                                       [x]
         function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
             |-
         function alie_wdm_add_custom_order_line_item_meta($item, $cart_item_key, $values, $order)
@@ -34,48 +45,157 @@ PLUGIN FLOW
         function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, inte $cart_total, $boolean)
             |- The first if ($boolean) finds the quantity discount group this is apart of.
             |- The deco selection uses the $obj as a key, $deco as the type of decoration, and $cart_total is the total amount in the cart.
-    
-    function_file_code.php
-        function ale_before_add_to_cart_btn()
+        function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key)
+            |-
+        function set_cart_item_calculated_price( $cart_values )
+            |-
+        function customizing_cart_item_data( $item_name, $cart_item, $cart_item_key )
+            |-
+        function my_custom_message()
             |- 
-        
+    _______________________________________________________
+    function_file_code.php                              [?]
+        this does alot
+            function ale_before_add_to_cart_btn()
+                |- add_action("sss_jam_custom_html")
+                |- what is $table_screen_print = $wpdb->prefix . "ss_screen_print_cart_product";
+                |- $product_tags = shows the id's of the tags associated with the product
+                    |- The foreach right below it checks the $table_name (ss_gloablly_decoration_settings) for the tag id in the tags_name column.
+                |- 
+                |-
+                |- 
+                |- 
+                |- 
+                |- 
+            function wdm_add_item_data($cart_item_data, $product_id, $variation_id)
+                |- add_filter("woocommerce_add_cart_item_data")
+                |- Adds the custom data from the proudct page to the cart
+                    |- $cart_item_data["wdm_name"]
+                    |- $cart_item_data["ss_print_count"]
+                    |- $cart_item_data["jam_decoration"] 
+                |- 
+            function  ale_custom_js_func()
+                |- add_action("wp_footer")
+                |- 
+                |- 
 
 
 
 
 
+    _______________________________________________________
+    product_base_discount_meta_box.php                  [-]|
+        creates the input settings boxes for the discounts.
+            function create_custom_meta_box()
+                |-
+            function add_custom_content_meta_box()
+                |- 
+            function save_product_qty_base_discount()
+                |-
+    _______________________________________________________|
+    customJS.php                                        [x]|
+        this does jQuery
+            function alie_custom_js_file_()
+                |- last_li_dis_price = grabs the last price.
+                |- appends the screen print table guide in the decoration. & Embroidery but that is commented out.
+                |- This appends the stock count to the size input boxes.
+                |- REMOVE OPTION ARROW ICON IF OPT QTY 1 ST
+                |-
+            function show_hide_color_field()
+                |- add_action('wp_head');
+    _______________________________________________________|
+    product_page_js.php                                 [x]|
+        This is more JS that is appended that added the text for embroidery and screenprint?
+            function ss_product_custom_js()
+                |- add_action 'wp_footer'
+                |- this transforms the text from Embroidery 2 and Screen Print 3 to just the words.
+    _______________________________________________________|
+    custm_meta_boxes.php                                [x]|
+        creates alot of the meta info and details
+            function create_imprint_loc_color_attribute_taxonomies()
+                |- creates the pa_imprint-location and the pa_print-colors
+                |- 
+            function misha_product_settings_tabs( $tabs )
+                |- this is insetting the inner tabbed option of 'Decoration Settings' into 
+                |- what is 'target' => 'alie_ss_product_data'
+                |- 
+            function misha_product_panels()
+                |- This is the form to fill out that creates all the extra data on the backend
+                |- 
+            function woocommerce_product_custom_fields_save( $post_id )
+                |- saves the pa_imprint_color, pa_imprint_location and pa_imprint_type
+                |-
+            function scratchcode_run_code_one_time()
+                |- What does this do?? This is not present in the OG plugin but in the live one it exists but is commented out.
+                |-
+    _______________________________________________________|
+    mycustom.js                                         [x]|
+        same as the general.js. What does the jQuery(function($){ .select2() }) <- What does this do?
+    _______________________________________________________|
+
+
+    settingPages
+
+
+
+
+
+===================================================================================================
     ID / CLASSES REFFED -
-        #bulkorderformshow          =
-        #bulkvariationform          =   
-            |- The complete form
-        .variations1                =   .color_size_wrapper
-        .bulktablebody              =
-            |- Main Body wrapper
-            |- do_action('Show_Discount_On_Product_Page');
-        .variations1 (lower)        =   .size_inputs_wrapper
-        .bulktablebody1             =   .bulk_size_table
-        .bulkorderradio             =   .color_pick_radio
-        button.bulksubmit           =
-            |- Submit Button
-        .bulk_add_to_cart_button    =
-            |- <?= __('Add to cart', 'sss_jam'); ?>
-        .bulkorder-size-attr        =
-        .bulkorder-colors-variation =
-        .value1                     =   .size_value
-        #bulkcolore                 =   #bulkcolor
-        .colorspan
-        .tooltiptext
+        MAIN PAGE
+            #bulkorderformshow          =
+            #bulkvariationform          =   #bulkvariationform
+                |- The complete form
+            .variations1                =   .color_size_wrapper
+            .bulktablebody              =
+                |- Main Body wrapper
+                |- do_action('Show_Discount_On_Product_Page');
+            .variations1 (lower)        =   .size_inputs_wrapper
+            .bulktablebody1             =   .bulk_size_table
+            .bulkorderradio             =   .color_pick_radio
+            button.bulksubmit           =
+                |- Submit Button
+            .bulk_add_to_cart_button    =
+                |- <?= __('Add to cart', 'sss_jam'); ?>
+            .bulkorder-size-attr        =
+            .bulkorder-colors-variation =
+            .value1                     =   .size_value
+            #bulkcolore                 =   #bulkcolor
+            .colorspan
+            .tooltiptext
 
-        .deccart_option_wrapper     =
-        .decshowoption              =
-            |- do_action('showdec');
-        .bulk_variation_wrap        =
-        #dec_opt_div                =
-            |- do_action('sss_jam_custom_html');
+            .deccart_option_wrapper     =
+            .decshowoption              =
+                |- do_action('showdec');
+            .bulk_variation_wrap        =
+            #dec_opt_div                =
+                |- do_action('sss_jam_custom_html');
+
+
+        ______________________________________________________________
+        CART PAGE
+            .ss_print_count             =   .cart_total_colors
+            .cart_total_qan             =   .cart_total_embroidery
+            .cart_total_qan1            =   .cart_total_screen
+        ______________________________________________________________
+        customJs.php PAGE
+            last_li_dis_price           =   last_listed_display_price
+            main-sh-li                  =   
+            #ale_wrap_container         =
+            #custom-table-sh            =
+            .ale_aft_Adt_btn            =
+            .custom-table-inner-sh      =
+        ______________________________________________________________
+        FUNCTION_FILE_CODE PHP PAGE
+
+            $table_name                 =
+                ss_gloablly_decoration_settings =   
 
 
 
 
+
+===================================================================================================
 FILES---------------------------------------
 ________________________________________________________________
 newBulkOrderAndQuantity.php
@@ -156,7 +276,7 @@ Cart.php
 
 
 
-
+===================================================================================================
 
 
 

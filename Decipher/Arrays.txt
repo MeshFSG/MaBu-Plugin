@@ -1,0 +1,528 @@
+
+====================================|
+DATABASE TABLES                     |
+====================================|
+________________________________________________________________
+    wp_ss_gloablly_decoration_settings
+        ____________________________________________________
+        id , tags_name , tags_object , date columns
+        ____________________________________________________
+        '2',
+        '229,231,77,78,53,197,66,54,63,217,141,178', 
+        'a:1:{
+            i:0;
+            a:3:{
+                s:15:\"pa_imprint_type\";
+                    a:2:{
+                        i:0;
+                            s:12:\"embroidery-2\";
+                        i:1;
+                            s:14:\"screen-print-3\";
+                    }
+                s:19:\"pa_imprint_location\";
+                    a:6:{
+                        i:0;
+                            s:2:\"28\";
+                        i:1;
+                            s:2:\"29\";
+                        i:2;
+                            s:2:\"30\";
+                        i:3;
+                            s:2:\"31\";
+                        i:4;
+                            s:2:\"32\";
+                        i:5;
+                            s:2:\"33\";
+                    }
+                s:16:\"pa_imprint_color\";
+                    a:2:{
+                        i:0;
+                            s:2:\"37\";
+                        i:1;
+                            s:2:\"38\";
+                    }
+            }
+        }',
+        '07/10/2023'
+        ____________________________________________________
+________________________________________________________________
+    wp_ss_screen_print_cart_product
+        ____________________________________________________
+        id , ss_min_qty , ss_max_qty , ss_discount_in_per , date
+        ____________________________________________________
+________________________________________________________________
+    wp_ss_wc_product_discount
+        ____________________________________________________
+        id , ss_min_qty_field , ss_max_qty_field , ss_disocunt_in_per , tags_name , tags_object , date
+        ____________________________________________________
+        '2', 
+        '', 
+        '', 
+        '', 
+        '229,77,197,66,54,63,141,178', 
+        'a:8:{
+            i:0;a:3:{
+                s:6:\"minQTY\";
+                    s:1:\"1\";
+                s:6:\"maxQTY\";
+                    s:2:\"23\";
+                s:8:\"discount\";
+                    s:1:\"0\";
+            }
+            i:1;a:3:{
+                s:6:\"minQTY\";
+                    s:2:\"24\";
+                s:6:\"maxQTY\";
+                    s:2:\"47\";
+                s:8:\"discount\";
+                    s:2:\"10\";
+            }
+            i:2;a:3:{
+                s:6:\"minQTY\";
+                    s:2:\"48\";
+                s:6:\"maxQTY\";
+                    s:2:\"95\";
+                s:8:\"discount\";
+                    s:2:\"17\";
+            }
+            i:3;a:3:{
+                s:6:\"minQTY\";
+                    s:2:\"96\";
+                s:6:\"maxQTY\";
+                    s:3:\"143\";
+                s:8:\"discount\";
+                    s:2:\"20\";
+            }
+            i:4;a:3:{
+                s:6:\"minQTY\";
+                    s:3:\"144\";
+                s:6:\"maxQTY\";
+                    s:3:\"299\";
+                s:8:\"discount\";
+                    s:2:\"23\";
+            }
+            i:5;a:3:{
+                s:6:\"minQTY\";
+                    s:3:\"300\";
+                s:6:\"maxQTY\";
+                    s:3:\"499\";
+                s:8:\"discount\";
+                    s:2:\"26\";
+            }
+            i:6;a:3:{
+                s:6:\"minQTY\";
+                    s:3:\"500\";
+                s:6:\"maxQTY\";
+                    s:3:\"999\";
+                s:8:\"discount\";
+                    s:2:\"30\";
+            }
+            i:7;a:3:{
+                s:6:\"minQTY\";
+                    s:4:\"1000\";
+                s:6:\"maxQTY\";
+                    s:6:\"100000\";
+                s:8:\"discount\";
+                    s:2:\"30\";
+            }
+        }',
+        
+        '07/10/2023'
+
+
+
+
+________________________________________________________________
+    wp_ss_embroidery_cart_product
+        ____________________________________________________
+        id , ss_min_qty , ss_max_qty , ss_discount_in_per , date
+        ____________________________________________________
+________________________________________________________________
+
+
+
+====================================|
+cart-page.php                       |
+====================================|
+________________________________________________________________
+    $values
+        Array ( 
+            [wdm_name] => 
+            [ss_print_count] => 0 
+            [jam_decoration] => blank 
+            [key] => 90d3c3a1ed51208ec40ece661cc168fd 
+            [product_id] => 608 
+            [variation_id] => 9102 
+            [variation] => Array ( 
+                [attribute_pa_size] => large 
+                [attribute_pa_color] => solid-black-triblend 
+            ) 
+            [quantity] => 60 
+            [data_hash] => 9c9b455ffdc80d696dfe330fd46295e1 
+            [line_tax_data] => Array ( 
+                [subtotal] => Array ( 
+                    [1] => 142.2288 
+                ) 
+                [total] => Array ( 
+                    [1] => 142.2288 
+                ) 
+            ) 
+            [line_subtotal] => 2539.8 
+            [line_subtotal_tax] => 142.23 
+            [line_total] => 2539.8 
+            [line_tax] => 142.23 
+            [data] => WC_Product_Variation Object ( 
+                [id:protected] => 9102 
+                [data:protected] => Array ( 
+                    [name] => BELLA+CANVAS Unisex Triblend Sponge Fleece Full-Zip Hoodie. BC3909 - L, Solid Black Triblend 
+                    [slug] => bellacanvas-unisex-triblend-sponge-fleece-full-zip-hoodie-bc3909-l-solid-black-triblend 
+                    [date_created] => WC_DateTime Object ( 
+                        [utc_offset:protected] => 0 
+                        [date] => 2023-06-26 15:48:46.000000 
+                        [timezone_type] => 3 
+                        [timezone] => America/Chicago 
+                    ) 
+                    [date_modified] => WC_DateTime Object ( 
+                        [utc_offset:protected] => 0 
+                        [date] => 2023-06-26 15:48:53.000000 
+                        [timezone_type] => 3 
+                        [timezone] => America/Chicago 
+                    ) 
+                    [status] => publish 
+                    [featured] => 
+                    [catalog_visibility] => visible 
+                    [description] => 
+                    [short_description] => 
+                    [sku] => 1303474 
+                    [price] => 51.41 
+                    [regular_price] => 51.41 
+                    [sale_price] => 
+                    [date_on_sale_from] => 
+                    [date_on_sale_to] => 
+                    [total_sales] => 0 
+                    [tax_status] => taxable 
+                    [tax_class] => 
+                    [manage_stock] => 1 
+                    [stock_quantity] => 3000 
+                    [stock_status] => instock 
+                    [backorders] => no 
+                    [low_stock_amount] => 
+                    [sold_individually] => 
+                    [weight] => 1.16 
+                    [length] => 
+                    [width] => 
+                    [height] => 
+                    [upsell_ids] => Array ( ) 
+                    [cross_sell_ids] => Array ( ) 
+                    [parent_id] => 608 
+                    [reviews_allowed] => 
+                    [purchase_note] => 
+                    [attributes] => Array ( 
+                        [pa_size] => large 
+                        [pa_color] => solid-black-triblend 
+                    ) 
+                    [default_attributes] => Array ( ) 
+                    [menu_order] => 0 
+                    [post_password] => 
+                    [virtual] => 
+                    [downloadable] => 
+                    [category_ids] => Array ( ) 
+                    [tag_ids] => Array ( ) 
+                    [shipping_class_id] => 0 
+                    [downloads] => Array ( ) 
+                    [image_id] => 9109 
+                    [gallery_image_ids] => Array ( ) 
+                    [download_limit] => -1 
+                    [download_expiry] => -1 
+                    [rating_counts] => Array ( ) 
+                    [average_rating] => 0 
+                    [review_count] => 0 
+                    [attribute_summary] => Size: L, Color: Solid Black Triblend ) 
+                    [changes:protected] => Array ( 
+                        [price] => 42.33 
+                    ) 
+                    [object_read:protected] => 1 
+                    [object_type:protected] => product 
+                    [extra_data:protected] => Array ( ) 
+                    [default_data:protected] => Array ( 
+                        [name] => 
+                        [slug] => 
+                        [date_created] => 
+                        [date_modified] => 
+                        [status] => 
+                        [featured] => 
+                        [catalog_visibility] => visible 
+                        [description] => 
+                        [short_description] => 
+                        [sku] => 
+                        [price] => 
+                        [regular_price] => 
+                        [sale_price] => 
+                        [date_on_sale_from] => 
+                        [date_on_sale_to] => 
+                        [total_sales] => 0 
+                        [tax_status] => taxable 
+                        [tax_class] => parent 
+                        [manage_stock] => 
+                        [stock_quantity] => 
+                        [stock_status] => instock 
+                        [backorders] => no 
+                        [low_stock_amount] => 
+                        [sold_individually] => 
+                        [weight] => 
+                        [length] => 
+                        [width] => 
+                        [height] => 
+                        [upsell_ids] => Array ( ) 
+                        [cross_sell_ids] => Array ( ) 
+                        [parent_id] => 0 
+                        [reviews_allowed] => 1 
+                        [purchase_note] => 
+                        [attributes] => Array ( ) 
+                        [default_attributes] => Array ( ) 
+                        [menu_order] => 0 
+                        [post_password] => 
+                        [virtual] => 
+                        [downloadable] => 
+                        [category_ids] => Array ( ) 
+                        [tag_ids] => Array ( ) 
+                        [shipping_class_id] => 0 
+                        [downloads] => Array ( ) 
+                        [image_id] => 
+                        [gallery_image_ids] => Array ( ) 
+                        [download_limit] => -1 
+                        [download_expiry] => -1 
+                        [rating_counts] => Array ( ) 
+                        [average_rating] => 0 
+                        [review_count] => 0 
+                        [attribute_summary] => 
+                    ) 
+                    [data_store:protected] => WC_Data_Store Object ( 
+                        [instance:WC_Data_Store:private] => WC_Product_Variation_Data_Store_CPT Object ( 
+                            [meta_type:protected] => post 
+                            [object_id_field_for_meta:protected] => 
+                            [internal_meta_keys:protected] => Array ( 
+                                [0] => _visibility 
+                                [1] => _sku 
+                                [2] => _price 
+                                [3] => _regular_price 
+                                [4] => _sale_price 
+                                [5] => _sale_price_dates_from 
+                                [6] => _sale_price_dates_to 
+                                [7] => total_sales 
+                                [8] => _tax_status 
+                                [9] => _tax_class 
+                                [10] => _manage_stock 
+                                [11] => _stock 
+                                [12] => _stock_status 
+                                [13] => _backorders 
+                                [14] => _low_stock_amount 
+                                [15] => _sold_individually 
+                                [16] => _weight 
+                                [17] => _length 
+                                [18] => _width 
+                                [19] => _height 
+                                [20] => _upsell_ids 
+                                [21] => _crosssell_ids 
+                                [22] => _purchase_note 
+                                [23] => _default_attributes 
+                                [24] => _product_attributes 
+                                [25] => _virtual 
+                                [26] => _downloadable 
+                                [27] => _download_limit 
+                                [28] => _download_expiry 
+                                [29] => _featured 
+                                [30] => _downloadable_files 
+                                [31] => _wc_rating_count 
+                                [32] => _wc_average_rating 
+                                [33] => _wc_review_count 
+                                [34] => _variation_description 
+                                [35] => _thumbnail_id 
+                                [36] => _file_paths 
+                                [37] => _product_image_gallery 
+                                [38] => _product_version 
+                                [39] => _wp_old_slug 
+                                [40] => _edit_last 
+                                [41] => _edit_lock 
+                            ) 
+                            [must_exist_meta_keys:protected] => Array ( 
+                                [0] => _tax_class 
+                            ) 
+                            [extra_data_saved:protected] => 
+                            [updated_props:protected] => Array ( ) 
+                        ) 
+                        [stores:WC_Data_Store:private] => Array ( 
+                            [coupon] => WC_Coupon_Data_Store_CPT 
+                            [customer] => WC_Customer_Data_Store 
+                            [customer-download] => WC_Customer_Download_Data_Store 
+                            [customer-download-log] => WC_Customer_Download_Log_Data_Store 
+                            [customer-session] => WC_Customer_Data_Store_Session 
+                            [order] => WC_Order_Data_Store_CPT 
+                            [order-refund] => WC_Order_Refund_Data_Store_CPT 
+                            [order-item] => WC_Order_Item_Data_Store 
+                            [order-item-coupon] => WC_Order_Item_Coupon_Data_Store 
+                            [order-item-fee] => WC_Order_Item_Fee_Data_Store 
+                            [order-item-product] => WC_Order_Item_Product_Data_Store 
+                            [order-item-shipping] => WC_Order_Item_Shipping_Data_Store 
+                            [order-item-tax] => WC_Order_Item_Tax_Data_Store 
+                            [payment-token] => WC_Payment_Token_Data_Store 
+                            [product] => WC_Product_Data_Store_CPT 
+                            [product-grouped] => WC_Product_Grouped_Data_Store_CPT 
+                            [product-variable] => WC_Product_Variable_Data_Store_CPT 
+                            [product-variation] => WC_Product_Variation_Data_Store_CPT 
+                            [shipping-zone] => WC_Shipping_Zone_Data_Store 
+                            [webhook] => WC_Webhook_Data_Store 
+                            [report-revenue-stats] => Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore 
+                            [report-orders] => Automattic\WooCommerce\Admin\API\Reports\Orders\DataStore 
+                            [report-orders-stats] => Automattic\WooCommerce\Admin\API\Reports\Orders\Stats\DataStore 
+                            [report-products] => Automattic\WooCommerce\Admin\API\Reports\Products\DataStore 
+                            [report-variations] => Automattic\WooCommerce\Admin\API\Reports\Variations\DataStore 
+                            [report-products-stats] => Automattic\WooCommerce\Admin\API\Reports\Products\Stats\DataStore 
+                            [report-variations-stats] => Automattic\WooCommerce\Admin\API\Reports\Variations\Stats\DataStore 
+                            [report-categories] => Automattic\WooCommerce\Admin\API\Reports\Categories\DataStore 
+                            [report-taxes] => Automattic\WooCommerce\Admin\API\Reports\Taxes\DataStore 
+                            [report-taxes-stats] => Automattic\WooCommerce\Admin\API\Reports\Taxes\Stats\DataStore 
+                            [report-coupons] => Automattic\WooCommerce\Admin\API\Reports\Coupons\DataStore 
+                            [report-coupons-stats] => Automattic\WooCommerce\Admin\API\Reports\Coupons\Stats\DataStore 
+                            [report-downloads] => Automattic\WooCommerce\Admin\API\Reports\Downloads\DataStore 
+                            [report-downloads-stats] => Automattic\WooCommerce\Admin\API\Reports\Downloads\Stats\DataStore 
+                            [admin-note] => Automattic\WooCommerce\Admin\Notes\DataStore 
+                            [report-customers] => Automattic\WooCommerce\Admin\API\Reports\Customers\DataStore 
+                            [report-customers-stats] => Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\DataStore 
+                            [report-stock-stats] => Automattic\WooCommerce\Admin\API\Reports\Stock\Stats\DataStore 
+                        ) 
+                        [current_class_name:WC_Data_Store:private] => WC_Product_Variation_Data_Store_CPT 
+                        [object_type:WC_Data_Store:private] => product-variation 
+                    ) 
+                    [cache_group:protected] => products 
+                    [meta_data:protected] => 
+                    [legacy_datastore_props:protected] => Array ( ) 
+                    [post_type:protected] => product_variation 
+                    [supports:protected] => Array ( 
+                        [0] => ajax_add_to_cart 
+                    ) 
+                    [parent_data:protected] => Array ( 
+                        [title] => BELLA+CANVAS Unisex Triblend Sponge Fleece Full-Zip Hoodie. BC3909 
+                        [status] => publish 
+                        [sku] => P1303411 
+                        [manage_stock] => no 
+                        [backorders] => no 
+                        [stock_quantity] => 0 
+                        [weight] => 1 
+                        [length] => 
+                        [width] => 
+                        [height] => 
+                        [tax_class] => 
+                        [shipping_class_id] => 0 
+                        [image_id] => 630 
+                        [purchase_note] => 
+                        [catalog_visibility] => visible 
+                    ) 
+                ) 
+            )
+________________________________________________________________
+    $get_embroidery_pricing
+        Array (
+                [0] => stdClass Object (
+                    [id] => 1
+                    [ss_min_qty] => 1
+                    [ss_max_qty] => 23
+                    [ss_discount_in_per] => 7.95
+                    [date] => 06/06/2023
+                )
+                [1] => SAME vvvv
+        )
+________________________________________________________________
+    $get_screenP_pricing
+        Array ( 
+            [0] => stdClass Object ( 
+                [id] => 1 
+                [ss_min_qty_field] => 1 
+                [ss_max_qty_field] => 23 
+                [ss_discount_in_per] => 6.30,7.82,9.52,10.92,12.73,14.68 
+                [ss_amountof_color] => 3 
+                [date] => 10/12/2023 
+            ) 
+            [1] => stdClass Object ( 
+                [id] => 2 
+                [ss_min_qty_field] => 24 
+                [ss_max_qty_field] => 47 
+                [ss_discount_in_per] => 4.20,5.25,6.45,7.15,8.23,10.17 
+                [ss_amountof_color] => 3 
+                [date] => 07/10/2023 
+            ) 
+            [2] => stdClass Object ( 
+                [id] => 3 
+                [ss_min_qty_field] => 48 
+                [ss_max_qty_field] => 95 
+                [ss_discount_in_per] => 3.33,4.50,5.50,6.30,7.40,9.33 
+                [ss_amountof_color] => 4 
+                [date] => 07/10/2023 
+            ) 
+            [3] => stdClass Object ( 
+                [id] => 4 [ss_min_qty_field] => 96 [ss_max_qty_field] => 143 [ss_discount_in_per] => 2.95,3.77,4.60,5.58,6.45,7.30 [ss_amountof_color] => 5 [date] => 07/10/2023 
+            ) 
+            [4] => stdClass Object ( 
+                [id] => 5 [ss_min_qty_field] => 144 [ss_max_qty_field] => 299 [ss_discount_in_per] => 2.38,3.30,4.10,4.65,5.35,6.15 [ss_amountof_color] => 6 [date] => 07/10/2023 
+            ) 
+            [5] => stdClass Object ( 
+                [id] => 6 [ss_min_qty_field] => 300 [ss_max_qty_field] => 499 [ss_discount_in_per] => 1.73,2.05,2.52,2.83,3.25,3.47 [ss_amountof_color] => 6 [date] => 07/10/2023 
+            ) 
+            [6] => stdClass Object ( 
+                [id] => 7 [ss_min_qty_field] => 500 [ss_max_qty_field] => 999 [ss_discount_in_per] => 1.40,1.63,1.90,2.15,2.40,2.55 [ss_amountof_color] => 6 [date] => 07/10/2023 
+            ) 
+            [7] => stdClass Object ( 
+                [id] => 8 [ss_min_qty_field] => 1000 [ss_max_qty_field] => 9999 [ss_discount_in_per] => 1.19,1.40,1.50,1.60,1.85,2.05 [ss_amountof_color] => 6 [date] => 07/10/2023 
+            ) 
+        )
+________________________________________________________________
+    $quantity_base_disocunt
+        Array ( 
+            [1-23] => 0 
+            [24-47] => 10 
+            [48-95] => 17 
+            [96-143] => 20 
+            [144-299] => 23 
+            [300-499] => 26 
+            [500-999] => 30 
+            [1000-100000] => 30 
+        )
+________________________________________________________________
+
+
+
+====================================|
+function_file_code.php              |
+====================================|
+________________________________________________________________
+    $product_tags
+        Array (
+            [0] => 231
+            [1] => 54
+        )
+________________________________________________________________
+
+
+________________________________________________________________
+
+
+________________________________________________________________
+
+
+
+====================================|
+BulkOrderAndQuantity.php            |
+====================================|
+________________________________________________________________
+
+
+________________________________________________________________
+
+
+
+
+
+
+
+
+
