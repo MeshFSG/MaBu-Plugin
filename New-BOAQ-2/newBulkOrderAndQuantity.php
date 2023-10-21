@@ -158,8 +158,7 @@ function ss_custom_js_frontend() {
 					}
 				});
 			});
-			
-			// BULK ORDER RADIO INPUT CLICK FUNCTION
+			// BULK ORDER RADIO INPUT CLICK FUNCTION AJAX Call
 			jQuery('.color_pick_radio input').click(function() {
 				let selectvalue = jQuery(this).val();
 				// AJAX
@@ -226,11 +225,12 @@ function ss_custom_js_frontend() {
 /////////////////////////// CHECK STOCK AVAILABILITY /////////////////////////////
 add_action('wp_ajax_check_availabilty_stock', 'check_availabilty_stock');
 add_action('wp_ajax_nopriv_check_availabilty_stock', 'check_availabilty_stock');
+
 function check_availabilty_stock() {
 	global $product;
 	$second_loop_stoped = false;
 	$proid =  $_POST['id'];
-	$selectvaue = $_POST['selectvalue'];
+	$selectedvalue = $_POST['selectvalue'];
 	$vailabilityarr = array();
 	$fullimage = array();
 	$product = wc_get_product($proid);
@@ -246,7 +246,7 @@ function check_availabilty_stock() {
 		$stock_status = $variation_obj->get_stock_status();
 
 		if ($stock_status == 'instock') {
-			$stock_qty = $variation_obj->get_stock_quantity() ? $variation_obj->get_stock_quantity() : 99999;
+			$stock_qty = $variation_obj->get_stock_quantity() ? $variation_obj->get_stock_quantity() : 0;
 		} else {
 			$stock_qty = 0;
 		}
@@ -256,7 +256,7 @@ function check_availabilty_stock() {
 
 		// INNER LOOP
 		foreach ($attributes_arr as $key => $value) {
-			if ($attributes_arr[$key] == $selectvaue) {
+			if ($attributes_arr[$key] == $selectedvalue) {
 				$fullimage['fullimage'] = $product_variations[$key1]['image']['url'];
 				$matchkey = array();
 				$getsizekey = array_filter(array_keys($attributes_arr), function ($var) {
@@ -278,45 +278,6 @@ function check_availabilty_stock() {
 
 
 ////////////////////////////////////////////////////////////////////////////////////
-//////// SHOW DECORATION BUTTON SHOWN ON PRODUCT PAGE
-/// TOP ON SHOWS ON ALL LOWER IS USING A HIDE EFFECT IF TAG NOT PRESENT
-add_action( 'showdec', 'showhidedecopt', 1);
-function showhidedecopt() {
-	echo '
-	<div class="decshowwrapper">
-		<div>
-			<button
-				type="button"
-				id="dectoggle"
-				class="deconoff"
-			>
-				Add Your Logo
-			</button>
-		</div>
-	</div>
-	';
-}
-function disallow_blank_if_product_brand_requires() {
-	if ( has_term( 'SDNS', 'product_tag' ) ) {
-		echo '<button id="hiddentrigger" class="hiddentrigger"/>';
-	} else {
-		echo '<div class="decshowwrapper">
-			<div>
-				<button
-					type="button"
-					id="dectoggle"
-					class="deconoff"
-				>
-					Add Your Logo
-				</button
-			</div>
-		</div>
-	';
-	}
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// BULK ORDER BUTTON /////////////////////////////
 /// INCLUDES do_action -- 
 ///						showdec
@@ -324,10 +285,12 @@ function disallow_blank_if_product_brand_requires() {
 add_action('woocommerce_before_add_to_cart_form', 'add_bulk_order_button', 1);
 function add_bulk_order_button() {
 	global $product, $post;
+
 	if (is_product() && $product->is_type('variable')) :
-	$attr =   $product->get_variation_attributes();
-	$product_variations = $product->get_available_variations();
-	$checkVariationAvailable = count($product_variations);
+		$attr =   $product->get_variation_attributes();
+		$product_variations = $product->get_available_variations();
+		$checkVariationAvailable = count($product_variations);
+
 
 	if ($checkVariationAvailable > 0) {
 		?>
@@ -348,6 +311,7 @@ function add_bulk_order_button() {
 										$attrName = $getData['name'];
 										sort($getData['options']);
 										$attrIds = $getData['options'];
+
 										if (str_contains($key, 'size')) {
 											?>
 											<td class="label bulkorder-size-attr">
@@ -393,6 +357,7 @@ function add_bulk_order_button() {
 													<label>
 														<?= str_replace('pa_', '', $key); ?>
 													</label>
+
 													<ul class="color_pick_radio">
 														<?php
 															foreach ($attrIds as $singleId) {
@@ -423,6 +388,7 @@ function add_bulk_order_button() {
 															}
 														?>
 													</ul>
+
 													<?php
 												$table .= '</td>';
 										} else { //else if end here
@@ -476,7 +442,7 @@ function add_bulk_order_button() {
 								?>
 							</div>
 
-							<button type="submit" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit">
+							<button type="submit" id="bulk_submit_cart_button" class="bulk_add_to_cart_button button alt bulksubmit" name="bulksubmit">
 								<?= __('Add to cart', 'sss_jam'); ?>
 							</button>
 						</div>
@@ -527,7 +493,8 @@ function find_matching_product_variation_id($product_id, $attributes) {
 function sss_jam_addtocart_message($count) {
 	// Output success messages
 	if (get_option('woocommerce_cart_redirect_after_add') == 'yes') :
-	$return_to = (wp_get_referer()) ? wp_get_referer() : home_url();
+		$return_to = (wp_get_referer()) ? wp_get_referer() : home_url();
+
 	$message   = sprintf('<a href="%s" class="button">%s</a> %s', $return_to, _('Continue Shopping &rarr;', 'woocommerce-bulk-variations'), sprintf(_('%s products successfully added to your cart.', 'woocommerce-bulk-variations'), $count));
 	else :
 	$message = $count . ' products successfully added to your cart <a href="' . get_permalink(wc_get_page_id('cart')) . '" class="button">View cart</a>';
@@ -537,14 +504,16 @@ function sss_jam_addtocart_message($count) {
 }
 
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// BULK ORDER QUANTITY /////////////////////////////
 add_action('wp_loaded', 'sss_jam_bulk_OrderQuantity', 99);
 function sss_jam_bulk_OrderQuantity() {
 	if (isset($_POST['bulksubmit'])) {
+		
 		$added_count  = 0;
 		$subtract_count  = 0;
-
+		
 		$selectedvariation = json_decode(stripslashes($_POST['attribute_pa_sizes'][0]));
 		$color = str_replace(' ', '-', trim($_POST['bulk_ord_attribute_pa_color']));
 
@@ -559,6 +528,7 @@ function sss_jam_bulk_OrderQuantity() {
 			$qty = trim($selectedvariation[$selectedvariationkey][1]);
 			$varitionarr = array();
 
+
 			foreach ($product_variations as $key => $value) {
 				echo $key;
 				if (str_contains( strtolower($key), 'size')) {
@@ -570,11 +540,13 @@ function sss_jam_bulk_OrderQuantity() {
 				}
 			} // inner foreach loop
 
+
 			$getvarid = find_matching_product_variation_id(
 				$productId,
 				$varitionarr
 			);
 
+			
 			if ($getvarid) {
 
 				$passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $productId, $qty, $getvarid, $varitionarr);
@@ -587,12 +559,10 @@ function sss_jam_bulk_OrderQuantity() {
 					} else {
 						$subtract_count++;
 					}
-
 				} //pass validation
 				else {
 					$error = true;
 				}
-
 			} //get varidation id
 			else {
 				$error = true;

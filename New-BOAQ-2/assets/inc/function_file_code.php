@@ -24,9 +24,12 @@
             }
         }
 
+        // GET DECORATION VARIABLE TYPES FOR THE PRODUCT
         $get_deco_type = $unser_tag_obj[0]['pa_imprint_type'];
         $imprint_location = $unser_tag_obj[0]['pa_imprint_location'];
         $imprint_color = $unser_tag_obj[0]['pa_imprint_color'];
+
+        // PRODUCT INFORMATION
         $product_data = wc_get_product($post_id);
         $get_price = $product_data->get_price();
 
@@ -43,27 +46,38 @@
 
 
         if (!empty($get_deco_type)) {
-            echo "<div class='ctm-select-decoration-wrapper'><label>Decoration * </label><select class='ctm-select-decoration' id='ctm-select-decoration'>";
-            foreach ($get_deco_type as $key => $value) {
-                echo "<option value=" .
-                    $value .
-                    ">" .
-                    str_replace("-", " ", $value) .
-                    "</option>";
-            }
-            echo "</select></div>";
+            echo "<div class='ctm-select-decoration-wrapper'>
+                    <label> 
+                        Decoration * 
+                    </label>
+                    <select class='ctm-select-decoration' id='ctm-select-decoration'>";
+                        if ( has_term( 'SDNS', 'product_tag') ) {
+                            echo "<option value='blank'> Blank </option>";
+                        }
+
+                        foreach ($get_deco_type as $key => $value) {
+                            echo "<option value=" .
+                                $value .
+                                ">" .
+                                str_replace("-", " ", $value) .
+                                "</option>";
+                        }
+                    echo "</select></div>";
         }
 
         if (empty($get_deco_type)) {
             return;
         }
+        
         ?>
-
+        <!-- DECORATION INPUT FORM  -->
         <div class="ale_wrap_container" id="ale_wrap_container">
+            <!-- THE LABELS OF THE INPUT FIELDS -->
             <div class="ale_field_wrapper23">
                 <p class="location_names">Location</p>
                 <p class="ale_clr_names">Type</p>
             </div>
+            <!-- BODY OF THE INPUT FIELD FOR DECORATION -->
             <div class="field_wrapper">
                 <div class="ale_field_wrapper">
                     <input type='hidden' id='ale_pro_price' name='ale_pro_price' value='<?php echo $get_price; ?>'>
@@ -91,7 +105,6 @@
                     <a href="javascript:void(0);" class="add_button" style="background:#2CC64D;color:white;" title="Confirm Location">+ Add</a>
                 </div>
             </div>
-
         </div>
         <!-- ///// -->
         <div class='ale_options_group' style="display: none;">
@@ -140,6 +153,7 @@
             return;
         } ?>
         <script type="text/javascript">
+
             function cstm_arr_add_remove() {
                 var elems = [];
                 jQuery(".ale_field_wrapper1").each(function() {
@@ -175,7 +189,6 @@
             }
 
             ////////////////////////////////////////////////////////////////////////
-
 
             function decoration_based_appned_filed_and_check() {
 

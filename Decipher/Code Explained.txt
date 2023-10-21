@@ -14,26 +14,77 @@ Starts with
 ===================================================================================================
 ACTIONS
     sss_jam_custom_html
+    Show_Discount_On_Product_Page
+    showdec
+
+
+    ACTION LOCATIONS
+        function add_bulkorder_button();
+            |- do_action('Show_Discount_On_Product_Page');
+            |- do_action('showdec');
+            |- do_action('sss_jam_custom_html);
+
+            |- sss_jam ???
 
 
 ===================================================================================================
 PLUGIN FLOW
     _______________________________________________________
     newBulkOrderAndQuantity.php                         [?]
-        function ss_custom_js_frontend()
+        function ss_pluginprefix_deactivate()                                   [x]
+            |-
+        function scratchcode_run_one_time()                                     [x]
+            |-
+        function alie_ctm_enqueue_script_for_clientSite()                       [x]
+            |-
+        function alie_ctm_enqueue_script_for_adminSite()                        [x]
+            |-
+        function get_min_max($ss_col, $ss_table_name)                           [x]
+            |- global $wpdb;
+            |- $wpdb->get_row("SELECT MIN(CAST(".$ss_col." AS int)) AS ss_min, MAX(CAST(".$ss_col." AS int)) AS ss_max FROM " . $ss_table_name);
+        function ss_custom_js_frontend()                                        [-]
             |-- Updates UI with interaction of Color and Size input
                 |-- function qtyval() {}
                 |-- Color Radio Pick does AJAX update with action "check_availability_stock"
-        function check_availability_stock()
+                |-- This has the jQuery('.color_pick_radio input').click(function() {})
+                    |-- does jQuery Ajax action check_availability_stock
+        function check_availability_stock()                                     [x]
             |-
-        function add_bulk_order_button()
+        function add_bulk_order_button()                                        [x]
             |- The UI Layout for the order
+            |- form id = 'bulkvariationform no action method post.
+                |- Input 2 types hidden.
+                    |- 1 - id='attribute_pa_sizes'  value = ''
+                    |- 2 - name='proid' value = '<?= $product=>id; ?>'
+                |- Input for the Sizes
+                    |- name="bulk_ord_quantity[]" value="" title="Qty" id="<?=trim($termslug); ?>" data-id="<?= trim($termslug); ?>"
+                |- Input for the colors
+                    |- name="bulk_ord_attribute_pa_color" value="<?= $termslug; ?>" id="bulkcolor<?= $singleId; ?>" data-code="<?= $color; ?>"
+                |- BUTTON TYPE="SUBMIT"
+                    |- class="bulk_add_to_cart_button" name="bulksubmit" id="bulk_submit_cart_button"
+                    |- inbetween the <button> html it says 
+                        |- <?= __('Add to cart', 'sss_jam'); ?>
+                    
+            
+            |- foreach ($abcd as $key => $value) -> Is breaking down the ID's and values of size and color attributes.
+            |- the stock: number under the sizes isnt defined here but as a jquery some where else.
+
+
             |-   do_action('Show_Discount_On_Product_Page');
                     |-
             |-   do_action('showdec');
                     |-
             |-   do_action('sss_jam_custom_html');
                     |-
+        function add_blank_bypass()                                             [x]
+            |-
+        function find_matching_product_variation_id($product_id, $attributes)   [x]
+            |-
+        function sss_jam_addtocart_message($count)                              [-]
+            |-
+        function sss_jam_bulk_OrderQuantity()                                   []
+            |- 
+        
     _______________________________________________________
     cart-page.php                                       [x]
         function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
@@ -61,11 +112,12 @@ PLUGIN FLOW
                 |- what is $table_screen_print = $wpdb->prefix . "ss_screen_print_cart_product";
                 |- $product_tags = shows the id's of the tags associated with the product
                     |- The foreach right below it checks the $table_name (ss_gloablly_decoration_settings) for the tag id in the tags_name column.
-                |- 
-                |-
-                |- 
-                |- 
-                |- 
+                |- The following variables are from the db query made on the product_tags as $value
+                    |- $get_deco_type = $unser_tag_obj[0]['pa_imprint_type'];
+                    |- $imprint_location = $unser_tag_obj[0]['pa_imprint_location'];
+                    |- $imprint_color = $unser_tag_obj[0]['pa_imprint_color'];
+                |- Includes the For Each that displays the product decoration options 
+                |- Includes the HTML & style of the table used for decoration selection.
                 |- 
             function wdm_add_item_data($cart_item_data, $product_id, $variation_id)
                 |- add_filter("woocommerce_add_cart_item_data")
@@ -76,13 +128,25 @@ PLUGIN FLOW
                 |- 
             function  ale_custom_js_func()
                 |- add_action("wp_footer")
+                |- This is a JS <script> 
+                |- function cstm_arr_add_remove
+                    |- ??? #ale_combo? 
+                |- function AddColors(state)
+                    |- ??? Adds colors?
+                |- function select2append()
+                    |- jQuery('select#ale_none_field).select2({ templateResult: AddColors })   <- why??
+                |- function decoration_based_appned_filed_and_check()
+                    |- 
+                |- function countMaxfields
+                    |-
+                |- jQuery(document).ready(function())
+                    |- 
                 |- 
                 |- 
-
-
-
-
-
+                |- 
+                |- 
+                |- 
+                |- 
     _______________________________________________________
     product_base_discount_meta_box.php                  [-]|
         creates the input settings boxes for the discounts.
@@ -132,6 +196,10 @@ PLUGIN FLOW
     mycustom.js                                         [x]|
         same as the general.js. What does the jQuery(function($){ .select2() }) <- What does this do?
     _______________________________________________________|
+    qty-base-discount.php                               [] |
+        function woo_wholesale_page_call()
+            |- 
+    
 
 
     settingPages
@@ -171,6 +239,10 @@ PLUGIN FLOW
             #dec_opt_div                =
                 |- do_action('sss_jam_custom_html');
 
+            $selectvaue                 =   $selectedvalue
+
+            $abcd                       =    ????? $product_attributes_arrays
+
 
         ______________________________________________________________
         CART PAGE
@@ -190,6 +262,15 @@ PLUGIN FLOW
 
             $table_name                 =
                 ss_gloablly_decoration_settings =   
+            .ctm-select-decoration-wrapper  =   
+            .ctm-select-decoration          =
+            #ctm-select-decoration          =
+
+            #ale_pro_price                  =
+            #ale_combo                      =
+            $ss_print_count                 =
+            $jam_decoration                 =
+            decoration_based_appned_filed_and_check =
 
 
 
