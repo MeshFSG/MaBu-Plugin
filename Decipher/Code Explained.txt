@@ -84,7 +84,8 @@ PLUGIN FLOW
             |-
         function sss_jam_bulk_OrderQuantity()                                   []
             |- 
-        
+            |- 
+            |- 
     _______________________________________________________
     cart-page.php                                       [x]
         function custom_cart_item_name( $item_name, $cart_item, $cart_item_key )
@@ -93,9 +94,10 @@ PLUGIN FLOW
             |-
         function so_32457241_before_order_itemmeta($item_id, $item, $_product)
             |-
-        function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, inte $cart_total, $boolean)
+        function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolean)
             |- The first if ($boolean) finds the quantity discount group this is apart of.
             |- The deco selection uses the $obj as a key, $deco as the type of decoration, and $cart_total is the total amount in the cart.
+            |- 
         function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key)
             |-
         function set_cart_item_calculated_price( $cart_values )
@@ -199,7 +201,11 @@ PLUGIN FLOW
     qty-base-discount.php                               [] |
         function woo_wholesale_page_call()
             |- 
-    
+        function show_discount_product_base_and_gloablly($arr, float $price, $boolean = true)
+            |- Displays the table on the product page that shows the discount and price of the product.
+        
+    _______________________________________________________|
+    .php                               [] |
 
 
     settingPages
@@ -242,6 +248,8 @@ PLUGIN FLOW
             $selectvaue                 =   $selectedvalue
 
             $abcd                       =    ????? $product_attributes_arrays
+
+            $url1                       =   ogurl
 
 
         ______________________________________________________________

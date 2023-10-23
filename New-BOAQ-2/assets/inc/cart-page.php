@@ -1,4 +1,91 @@
 <?php
+
+///// ADD CART FEE
+
+add_action('woocommerce_before_cart','cart_qty_totals');
+function cart_qty_totals(){
+	
+	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+		   $quantity = $cart_item['quantity'];
+			$carttotqty += $quantity;
+	}
+	echo $carttotqty;
+	
+	echo '<br>';
+	$get_cart_url = wc_get_cart_url();
+	
+	$qty_total .= "
+		<a class='cart-customlocation' 
+			href=" . wc_get_cart_url() . " 
+			title=" .  _e( 'View your shopping cart' ) . "
+		>";
+	
+	echo sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); 
+
+	echo WC()->cart->get_cart_total(); 
+	
+	$qty_total .= "</a>";
+	
+	echo $qty_total;
+	
+};
+
+// Add a custom fee (displaying a notice in cart page)
+add_action( 'woocommerce_cart_calculate_fees', 'add_custom_surcharge', 10, 1 );
+function add_custom_surcharge( $cart ) {
+	
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+        return;
+
+    if ( did_action( 'woocommerce_cart_calculate_fees' ) >= 2 )
+        return;
+	
+    // HERE Set minimum cart total amount
+    $minimum_amount = 6;
+
+    // Total (before taxes and shipping charges)
+	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+		   $quantity = $cart_item['quantity'];
+			$carttotqty += $quantity;
+	}
+	$cart_item_subtotal = $carttotqty;
+	
+	//	get_cart_contents_count;
+
+   // $min_price     = 100; // The minimal cart amount
+	$moqfee			= 80; // The Less than minimum fee
+
+	
+   // $current_price = $cart->cart_contents_total;
+//    $custom_fee    = $min_price - $current_price;
+
+	$custom_fee = $moqfee;
+
+	if ( $cart_item_subtotal < $minimum_amount) {
+        $cart->add_fee( __('Less than minimum'), $custom_fee, true );
+        // NOTICE ONLY IN CART PAGE
+        if( is_cart() ){
+            wc_print_notice( get_custom_fee_message( $minimum_amount, $cart_item_subtotal, $custom_fee ), 'error' );
+        };
+    }
+	
+}
+
+// The fee notice message
+function get_custom_fee_message( $minimum_amount, $cart_item_subtotal, $custom_fee ) {
+    return sprintf(
+        __('We have a %s piece minimum per order. As your current order is only %s, an additional %s fee will be applied.', 'woocommerce'),
+		wc_clean($minimum_amount),
+		wc_clean($cart_item_subtotal),
+		wc_price( $custom_fee )
+    );
+}
+
+
+
+
+
+
 /////////////SHOW CUSTOM META INTO CART PAGE AFTER ITEM TITLE///////////////
 
 // Add custom fields values under cart item name in cart
@@ -94,7 +181,7 @@ function so_32457241_before_order_itemmeta($item_id, $item, $_product) {
 }
 
 /////////////////////////DISCOUNT ON CART PAGE ////////////////////////////
-function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_total, $boolen) {
+function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, float $cart_total, $boolen) {
     
     if ($boolen) {
         // return $cart_total;
@@ -127,6 +214,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
         }
 
     } 
+
     elseif ($deco == 'embroidery-2') {
 
         foreach ($obj as $key => $value) {
@@ -142,6 +230,8 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $cart_to
         }
     }
 
+
+    
 } //function end
 
 /////////////////////////////////woocommerce_cart_item_price/////////////////////////////////////
@@ -319,9 +409,6 @@ function set_cart_item_calculated_price( $cart_values ) {
                 $screen_print[$value->ss_min_qty_field . '-' . $value->ss_max_qty_field] = explode(",", $value->ss_discount_in_per);
             }
         }
-        
-        // echo "<pre>";
-        // print_r($quantity_base_discount);
     
         foreach ($woocommerce->cart->get_cart() as $key => $cart_item_val) {
             // var_dump($cart_item_val["product_id"]);
@@ -367,8 +454,8 @@ function set_cart_item_calculated_price( $cart_values ) {
         $product_reg_price = $_product->get_regular_price();
     
         // CONVERT TO INTEGER
-		$int_product_reg_price = intval($product_reg_price);
-		$int_get_discount_val_base_on_qunty = intval($get_discount_val_base_on_qunty);
+		$int_product_reg_price = floatval($product_reg_price);
+		$int_get_discount_val_base_on_qunty = floatval($get_discount_val_base_on_qunty);
 
         // THE FINAL PRICE OF THE PRODUCT FOR THE CART
         $dis_price =  round($int_product_reg_price - ($int_product_reg_price * $int_get_discount_val_base_on_qunty / 100), 2) + $get_addons_price_base_on_qunty;

@@ -98,6 +98,7 @@
                             <option value="">Amount of Colors</option>
                             <?php
 								$max_color_amount = $wpdb->get_row("SELECT MAX(ss_amountof_color) AS max_color_amount FROM " . $table_screen_print)->max_color_amount;
+                                $i = 0;
                                 while ($i++ < $max_color_amount) echo '<option value="' . $i . '" >' . $i . "</option>";
 							?>
                         </select>
@@ -433,6 +434,7 @@
                 jQuery("button.bulksubmit").click(function(e) {
 
                     var productQuantity = 0;
+                    
                     jQuery(".bulk_size_table input.input-text.qty.text").each(function() {
                         productQuantity += Number(jQuery(this).val());
                     });

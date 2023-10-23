@@ -523,10 +523,12 @@ function sss_jam_bulk_OrderQuantity() {
 
 		$product_variations = $productobj->get_variation_attributes();
 
+
 		foreach ($selectedvariation as $selectedvariationkey => $selectedvariationvalue) {
 			$selectVariationKey = str_replace(' ', '-', trim($selectedvariation[$selectedvariationkey][0]));
 			$qty = trim($selectedvariation[$selectedvariationkey][1]);
 			$varitionarr = array();
+
 
 
 			foreach ($product_variations as $key => $value) {
@@ -541,12 +543,13 @@ function sss_jam_bulk_OrderQuantity() {
 			} // inner foreach loop
 
 
+
 			$getvarid = find_matching_product_variation_id(
 				$productId,
 				$varitionarr
 			);
 
-			
+
 			if ($getvarid) {
 
 				$passed_validation = apply_filters('woocommerce_add_to_cart_validation', true, $productId, $qty, $getvarid, $varitionarr);
@@ -574,15 +577,15 @@ function sss_jam_bulk_OrderQuantity() {
 
 
 
-
-		$url1 = site_url() . "/product/" . $productobj->get_slug();
+)
+		$ogurl = site_url() . "/product/" . $productobj->get_slug();
 		if ($error) {
-			wp_safe_redirect($url1);
+			wp_safe_redirect($ogurl);
 			exit;
 		} else {
 			if ($added_count) {
 				sss_jam_addtocart_message($added_count);
-				wp_safe_redirect($url1);
+				wp_safe_redirect($ogurl);
 				exit;
 			}
 		} //if ot error else start from here
