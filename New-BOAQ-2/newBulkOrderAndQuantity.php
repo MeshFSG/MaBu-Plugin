@@ -490,16 +490,15 @@ function find_matching_product_variation_id($product_id, $attributes) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// ADD TO CART MESSAGE  /////////////////////////////
-function sss_jam_addtocart_message($count) {
+function sss_jam_addtocart_message($added_qty) {
 	// Output success messages
 	if (get_option('woocommerce_cart_redirect_after_add') == 'yes') :
 		$return_to = (wp_get_referer()) ? wp_get_referer() : home_url();
 
 	$message   = sprintf('<a href="%s" class="button">%s</a> %s', $return_to, _('Continue Shopping &rarr;', 'woocommerce-bulk-variations'), sprintf(_('%s products successfully added to your cart.', 'woocommerce-bulk-variations'), $count));
 	else :
-	$message = $count . ' products successfully added to your cart <a href="' . get_permalink(wc_get_page_id('cart')) . '" class="button">View cart</a>';
+	$message = $added_qty . ' products successfully added to your cart <a href="' . get_permalink(wc_get_page_id('cart')) . '" class="button">View cart</a>';
 	endif;
-
 	wc_add_notice($message, 'success');
 }
 
@@ -513,6 +512,8 @@ function sss_jam_bulk_OrderQuantity() {
 		
 		$added_count  = 0;
 		$subtract_count  = 0;
+
+		$added_qty = 0;
 		
 		$selectedvariation = json_decode(stripslashes($_POST['attribute_pa_sizes'][0]));
 		$color = str_replace(' ', '-', trim($_POST['bulk_ord_attribute_pa_color']));
@@ -559,6 +560,7 @@ function sss_jam_bulk_OrderQuantity() {
 
 					if ($added) {
 						$added_count++;
+						$added_qty += $qty;
 					} else {
 						$subtract_count++;
 					}
@@ -572,19 +574,13 @@ function sss_jam_bulk_OrderQuantity() {
 			} //get variation id else end here
 		} //outer loop foreach
 
-
-
-
-
-
-)
 		$ogurl = site_url() . "/product/" . $productobj->get_slug();
 		if ($error) {
 			wp_safe_redirect($ogurl);
 			exit;
 		} else {
 			if ($added_count) {
-				sss_jam_addtocart_message($added_count);
+				sss_jam_addtocart_message($added_qty);
 				wp_safe_redirect($ogurl);
 				exit;
 			}

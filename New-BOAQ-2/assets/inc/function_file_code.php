@@ -7,14 +7,20 @@
 		global $wpdb;
     	$table_screen_print = $wpdb->prefix . "ss_screen_print_cart_product";
 
+
         if (!is_product() && $product->get_type() != "variable") {
             return;
         }
 
+        //============================================================================//
+        //============================================================================//
         global $wpdb,$product;
         $post_id = $product->get_id();
         $product_tags = $product->get_tag_ids();
         $table_name = $wpdb->prefix . "ss_gloablly_decoration_settings";
+        //============================================================================//
+        //============================================================================//
+
 
         foreach ($product_tags as $value) {
             $result =  $wpdb->get_row(  "SELECT * FROM $table_name WHERE tags_name LIKE '%" . $value ."%'" );
@@ -153,8 +159,10 @@
         if (!is_product()) {
             return;
         } ?>
+
         <script type="text/javascript">
 
+            // Gets the value of the decoration options row
             function cstm_arr_add_remove() {
                 var elems = [];
                 jQuery(".ale_field_wrapper1").each(function() {
@@ -264,7 +272,6 @@
             jQuery(document).ready(function() {
                 jQuery('select#ale_none_field').select2();
 
-
                 resetAllFields();
                 let maxField_product_sum = countMaxfields();
                 let show = maxField_product_sum[0];
@@ -284,7 +291,9 @@
                 var get_deco_val = jQuery("#ctm-select-decoration option").val();
                 var attr_vals = jQuery('.ale_options_group').html();
                 var wrap_select = jQuery('.ale_color_field').wrap('<select/>').parent().html();
+                var full_dec_box = jQuery('#ale_wrap_container');
 
+                ////////////////////////////////////////////
                 if (get_deco_val == "embroidery-2") {
                     jQuery("#ale_color_wraper").empty().html(attr_vals);
                     jQuery('.ale_options_group').empty();
@@ -292,7 +301,6 @@
                 } else {
                     jQuery("#ale_color_wraper").empty().html(wrap_select);
                 }
-
                 ////////////////////////////////////////////
                 if (get_deco_val == "embroidery-2") {
                     jQuery(".ale_clr_names").text("Colors");
@@ -301,24 +309,29 @@
                     jQuery(".ale_clr_names").text("Amount of Colors");
                     jQuery('.ale_aft_Adt_btn').css('display', 'block');
                 }
+                ////////////////////////////////////////////
+                if ( get_deco_val == "blank") {
+                        full_dec_box.css('display','none');
+                } else {
+                    full_dec_box.css('disaply','block');
+                }
+                ////////////////////////////////////////////
                 select2append();
-                //New input field html
+                ////////////////////////////////////////////
 
                 var x = 0; //Initial field counter is 1
                 //Once add button is clicked
+
                 jQuery('.add_button').unbind().click(function() {
 
                     var getlocvalue = jQuery(".ale_location_field").val();
                     var getcolorvalue = jQuery(".ale_color_field").val();
                     var clramount = jQuery("#ale_none_field").val();
                     var check_already = jQuery('#ale_combo').val();
+
                     if(check_already !== "") {
                         check_already = JSON.parse(check_already);
                     }
-					
-					// TEST CODE USED BELOW
-					// var cartbypass = "yes";
-					// 
 
                     for(var count = 0; count < check_already.length; count++ ){
                         if (check_already[count][0].includes(getlocvalue)) {
@@ -326,7 +339,6 @@
                             return;
                         }
                     }
-
 
                     var dec_val = jQuery('#ctm-select-decoration').val();
 
@@ -389,7 +401,9 @@
                     resetAllFields();
                     let maxField_product_sum = countMaxfields();
                     let show = maxField_product_sum[0];
+                    ////////////////////////////////////////////
                     jQuery('select.ale_color_field option').show();
+                    ////////////////////////////////////////////
                     setTimeout(function() {
                         jQuery('select.ale_color_field option').each(function(i, index) {
 
@@ -398,11 +412,9 @@
                             }
                         });
                     }, 500);
-
+                    ////////////////////////////////////////////
                     var attr_color = jQuery('input[name="bulk_ord_attribute_pa_color"]:checked').val();
                     var get_deco_val = jQuery(this).val();
-
-
                     ////////////////////////////////////////////
                     if("<?php echo get_option("ss_show_hide_color") ?>" == "off") {
 						if (jQuery(this).val() == 'embroidery-2') { 
@@ -412,11 +424,9 @@
 						}
 					}
                     ////////////////////////////////////////////
-
                     if (get_deco_val == "embroidery-2") {
                         jQuery("#ale_color_wraper").empty().html(attr_vals);
                         jQuery('.ale_options_group').empty();
-
                     } else {
                         jQuery("#ale_color_wraper").empty().html(wrap_select);
                     }
@@ -428,6 +438,13 @@
                         jQuery(".ale_clr_names").text("Amount of Colors");
                         jQuery('.ale_aft_Adt_btn').css('display', 'block');
                     }
+                    ////////////////////////////////////////////
+                    if ( get_deco_val == "blank") {
+                            full_dec_box.css('display','none');
+                    } else {
+                        full_dec_box.css('disaply','block');
+                    }
+                    ////////////////////////////////////////////
                     select2append();
                 });
 
@@ -444,6 +461,7 @@
                     // var ss_print_count = jQuery('.ale_field_wrapper1[data-deco^="screen-print-3"]').length;
 
                     var screen_print_cost = '';
+
                     jQuery(".ale_field_wrapper1").each(function() {
                         screen_print_cost += jQuery(this).find('p:nth-child(2)').text() + ',';
                     });
@@ -459,20 +477,30 @@
                     jQuery("input#ss_print_count").val(screen_print_cost);
                     jQuery('input#jam_decoration').val(dec_val);
 
-
-                    if ( has_term( 'SDNS', 'product_tag') ) {
-                        checkvalue == "pass"
-                    } else {
-                        if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
-                            let checkvalue = jQuery("input#ale_combo").val();
-                            if (checkvalue == "") {
-                                alert('Please Select a Combinations');
-                                e.preventDefault();
-                            }
+                    if (dec_val == "blank") {
+                        let checkvalue = "blankgood";
+                    } else if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
+                        let checkvalue = jQuery("input#ale_combo").val();
+                        if (checkvalue == "" || checkvalue == "[]" ) {
+                            alert('Please Select a Combination');
+                            e.preventDefault();
                         }
                     }
 
+                    // if ( has_term( 'SDNS', 'product_tag') ) {
+                    //     checkvalue == "pass"
+                    // } else {
+                    //     if (dec_val == "screen-print-3" || dec_val == "embroidery-2") {
+                    //         let checkvalue = jQuery("input#ale_combo").val();
+                    //         if (checkvalue == "" || []) {
+                    //             alert('Please Select a Combinations');
+                    //             e.preventDefault();
+                    //         }
+                    //     }
+                    // }
+
                 }); //Click function end here
+
                 function resetAllFields() {
                     jQuery(".ale_field_wrapper1").remove();
                     jQuery("input#ss_print_count,input#jam_decoration,input#ale_combo").val('');

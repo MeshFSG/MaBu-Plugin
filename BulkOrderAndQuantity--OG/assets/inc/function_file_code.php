@@ -317,6 +317,7 @@
                 var get_deco_val = jQuery("#ctm-select-decoration option").val();
                 var attr_vals = jQuery('.ale_options_group').html();
                 var wrap_select = jQuery('.ale_color_field').wrap('<select/>').parent().html();
+                var full_dec_box = jQuery('#ale_wrap_container');
 
                 if (get_deco_val == "embroidery-2") {
                     jQuery("#ale_color_wraper").empty().html(attr_vals);
@@ -331,6 +332,12 @@
                 } else if (get_deco_val == "screen-print-3") {
                     jQuery(".ale_clr_names").text("Amount of Colors");
                     jQuery('.ale_aft_Adt_btn').css('display', 'block');
+                }
+
+                if ( get_deco_val == "blank") {
+                        full_dec_box.css('display','none');
+                } else {
+                    full_dec_box.css('disaply','block');
                 }
 
                 select2append();
@@ -427,6 +434,10 @@
                     let maxField_product_sum = countMaxfields();
                     let show = maxField_product_sum[0];
 
+                    var attr_color = jQuery('input[name="bulk_ord_attribute_pa_color"]:checked').val();
+                    var get_deco_val = jQuery(this).val();
+                    var full_dec_box = jQuery('#ale_wrap_container');
+
                     jQuery('select.ale_color_field option').show();
 
                     setTimeout(function() {
@@ -438,8 +449,6 @@
                         });
                     }, 500);
 
-                    var attr_color = jQuery('input[name="bulk_ord_attribute_pa_color"]:checked').val();
-                    var get_deco_val = jQuery(this).val();
 
                     ////////////////////////////////////////////
                     if("<?php echo get_option("ss_show_hide_color") ?>" == "off") {
@@ -449,7 +458,6 @@
 							jQuery('.ale_clr_names').css('display', 'block'); 
 						}
 					}
-
                     ////////////////////////////////////////////
                     if (get_deco_val == "embroidery-2") {
                         jQuery("#ale_color_wraper").empty().html(attr_vals);
@@ -458,7 +466,6 @@
                     } else {
                         jQuery("#ale_color_wraper").empty().html(wrap_select);
                     }
-
                     ////////////////////////////////////////////
                     if (get_deco_val == "embroidery-2") {
                         jQuery(".ale_clr_names").text("Colors");
@@ -467,7 +474,13 @@
                         jQuery(".ale_clr_names").text("Amount of Colors");
                         jQuery('.ale_aft_Adt_btn').css('display', 'block');
                     }
-
+                    ////////////////////////////////////////////
+                    if ( get_deco_val == "blank") {
+                        full_dec_box.css('display','none');
+                    } else {
+                        full_dec_box.css('disaply','block');
+                    }
+                    ////////////////////////////////////////////
                     select2append();
 
                 });

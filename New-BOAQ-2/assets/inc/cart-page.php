@@ -181,7 +181,7 @@ function so_32457241_before_order_itemmeta($item_id, $item, $_product) {
 }
 
 /////////////////////////DISCOUNT ON CART PAGE ////////////////////////////
-function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, float $cart_total, $boolen) {
+function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, int $dec_cart_total, int $parent_cart_total, $boolen) {
     
     if ($boolen) {
         // return $cart_total;
@@ -190,7 +190,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, float $cart_
             $start_qunt = (int) $qunt_key[0];
             $end_qunt = (int) $qunt_key[1];
             // $cart_total;
-            if ($cart_total >= $start_qunt && $cart_total <= $end_qunt) {
+            if ($parent_cart_total >= $start_qunt && $parent_cart_total <= $end_qunt) {
                 return $obj[$key];
             }
         }
@@ -205,7 +205,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, float $cart_
             $qunt_key = explode("-", $key);
             $start_qunt = (int) $qunt_key[0];
             $end_qunt = (int) $qunt_key[1];
-            if ($cart_total >= $start_qunt && $cart_total <= $end_qunt) {
+            if ($dec_cart_total >= $start_qunt && $dec_cart_total <= $end_qunt) {
                 foreach (explode(",",$indexes) as $key1 => $value1) {
                     $addon_cost += $obj[$key][$value1 - 1]; 
                 }
@@ -222,7 +222,7 @@ function get_discount_by_qunat_and_plus_addons($obj, $deco, $index, float $cart_
             $start_qunt = (int) $qunt_key[0];
             $end_qunt = (int) $qunt_key[1];
 
-            if ($cart_total >= $start_qunt && $cart_total <= $end_qunt) {
+            if ($dec_cart_total >= $start_qunt && $dec_cart_total <= $end_qunt) {
                 // echo $obj[$key][0] $index;
                 return $obj[$key][0] * $index;
                 // return $deco;
@@ -296,6 +296,14 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
 
     //////////////// TOTALS UP THE QUANTITY FOR EMBROIDERY AND SCREEN PRINT /////////////////////////////////
     foreach ($woocommerce->cart->get_cart() as $key => $cart_item_val) {
+
+        $quantity = $cart_item_val['quantity'];
+        $carttotqty += $quantity;
+
+        if ($variation_parent_id == $cart_item_val["product_id"]) {
+            $tquantity = $cart_item_val['quantity'];
+            $cartonlyqty += $tquantity;
+        }
         // var_dump($cart_item_val["product_id"]);
         if ($cart_item_val['jam_decoration'] == 'embroidery-2' && $variation_parent_id === $cart_item_val["product_id"]) {
             $cart_total_qan += intval($cart_item_val['quantity']);
@@ -316,15 +324,15 @@ function alie_wpd_show_regular_price_on_cart($price, $values, $cart_item_key){
 
     ///////////////////////////////////////////////////////////////////
     if (!empty($quantity_base_discount)) {
-        $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, true);
+        $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, true);
     }
     ///////////////////////////////////////////////////////////////////
     if (!empty($screen_print) && $jam_decoration == 'screen-print-3') {
         // get price for screen printing addos
-        $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+        $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, false);
     } elseif ( !empty($embroidery) && $jam_decoration == 'embroidery-2') {
         // get price for screen printing addos
-        $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+        $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, false);
     } else {
         $get_addons_price_base_on_qunty = 0;
     }
@@ -434,16 +442,16 @@ function set_cart_item_calculated_price( $cart_values ) {
         // print_r($embroidery);
         ///////////////////////////////////////////////////////////////////
         if (!empty($quantity_base_discount)) {
-            $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, true);
+            $get_discount_val_base_on_qunty = get_discount_by_qunat_and_plus_addons($quantity_base_discount, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, true);
         }
         
         // FINDS THE DECORATION COST
         if (!empty($screen_print) && $jam_decoration == 'screen-print-3') {
             // get price for screen printing addos
-            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($screen_print, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, false);
         } elseif ( !empty($embroidery) && $jam_decoration == 'embroidery-2') {
             // get price for screen printing addos
-            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, false);
+            $get_addons_price_base_on_qunty = get_discount_by_qunat_and_plus_addons($embroidery, $jam_decoration, $ss_print_count, $item_total_by_dec, $cartonlyqty, false);
         } else {
             $get_addons_price_base_on_qunty = 0;
         }

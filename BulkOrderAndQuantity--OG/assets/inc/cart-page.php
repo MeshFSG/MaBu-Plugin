@@ -334,6 +334,9 @@ function set_cart_item_calculated_price( $cart_values ) {
         // print_r($quantity_base_discount);
     
         foreach ($woocommerce->cart->get_cart() as $key => $cart_item_val) {
+            $quantity = $cart_item_val['quantity'];
+            $carttotqty += $quantity;
+
             // var_dump($cart_item_val["product_id"]);
             if ($cart_item_val['jam_decoration'] == 'embroidery-2' && $variation_parent_id === $cart_item_val["product_id"]) {
                 $cart_total_qan += intval($cart_item_val['quantity']);
@@ -343,15 +346,25 @@ function set_cart_item_calculated_price( $cart_values ) {
             }
         }
         
-        if ($cart_total_qan > 0 && $cart_total_qan < 12 || $cart_total_qan1 > 0 && $cart_total_qan1 < 12)
-            $product_less_then_12 = 1;
+
+
+
+
+
+        // MINIMUMCHECK HERE
+        // if ($cart_total_qan > 0 && $cart_total_qan < 12 || $cart_total_qan1 > 0 && $cart_total_qan1 < 12)
+        //     $product_less_then_12 = 1;
         
+
+
+
+
         if ($jam_decoration == 'embroidery-2') {
             $item_total_by_dec =  $cart_total_qan;
         } elseif ($jam_decoration == 'screen-print-3') {
             $item_total_by_dec = $cart_total_qan1;
         } else {
-            $item_total_by_dec = intval($values['quantity']);
+            $item_total_by_dec = intval($carttotqty);
         }
     
         // print_r($embroidery);
